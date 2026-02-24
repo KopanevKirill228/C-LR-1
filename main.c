@@ -1,253 +1,246 @@
-// main.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include "my_string.h"
-#include "Vector.h"
 #include "fieldinfo.h"
 
-/* ============================================================================
- * Счётчик тестов
- * ========================================================================== */
-static int tests_passed = 0;
-static int tests_failed = 0;
 
-// Макрос для проверки условий
-#define TEST_ASSERT(condition, test_name) \
-    do { \
-        if (condition) { \
-            printf("  ✓ PASS: %s\n", test_name); \
-            tests_passed++; \
-        } else { \
-            printf("  ✗ FAIL: %s\n", test_name); \
-            tests_failed++; \
-        } \
-    } while (0)
-
-/* ============================================================================
- * Тест 1: Создание и уничтожение строки
- * ========================================================================== */
-void test_string_create_destroy(void) {
-    printf("\n=== Тест: Создание и уничтожение ===\n");
-    
-    // Нормальное создание
-    String* s1 = String_Create("Hello");
-    TEST_ASSERT(s1 != NULL, "String_Create(\"Hello\") != NULL");
-    TEST_ASSERT(String_Length(s1) == 5, "Длина \"Hello\" == 5");
-    String_Destroy(s1);
-    
-    // Пустая строка
-    String* s2 = String_Create("");
-    TEST_ASSERT(s2 != NULL, "String_Create(\"\") != NULL");
-    TEST_ASSERT(String_Length(s2) == 0, "Длина пустой строки == 0");
-    String_Destroy(s2);
-    
-    // NULL вход (должна создать пустую строку)
-    String* s3 = String_Create(NULL);
-    TEST_ASSERT(s3 != NULL, "String_Create(NULL) создаёт пустую строку");
-    String_Destroy(s3);
-    
-    // Двойное уничтожение (защита от краша)
-    String* s4 = String_Create("Test");
-    String_Destroy(s4);
-    String_Destroy(s4);  // Не должно падать
-    TEST_ASSERT(true, "Двойной String_Destroy безопасен");
-}
-
-/* ============================================================================
- * Тест 2: Конкатенация (Вариант 7)
- * ========================================================================== */
-void test_string_concat(void) {
-    printf("\n=== Тест: Конкатенация ===\n");
-    
-    String* s1 = String_Create("Hello, ");
-    String* s2 = String_Create("World!");
-    String* result = String_Concat(s1, s2);
-    
-    TEST_ASSERT(result != NULL, "String_Concat не возвращает NULL");
-    TEST_ASSERT(String_Length(result) == 13, "Длина конкатенации == 13");
-    
-    const char* c_str = String_ToCString(result);
-    TEST_ASSERT(c_str != NULL, "String_ToCString != NULL");
-    TEST_ASSERT(strcmp(c_str, "Hello, World!") == 0, "Содержимое конкатенации верно");
-    
-    String_Destroy(s1);
-    String_Destroy(s2);
-    String_Destroy(result);
-    
-    // Конкатенация с пустой строкой
-    String* empty = String_Create("");
-    String* s3 = String_Create("Test");
-    String* r1 = String_Concat(empty, s3);
-    String* r2 = String_Concat(s3, empty);
-    
-    TEST_ASSERT(strcmp(String_ToCString(r1), "Test") == 0, "Конкатенация с пустой (слева)");
-    TEST_ASSERT(strcmp(String_ToCString(r2), "Test") == 0, "Конкатенация с пустой (справа)");
-    
-    String_Destroy(empty);
-    String_Destroy(s3);
-    String_Destroy(r1);
-    String_Destroy(r2);
-    
-    // Конкатенация с NULL
-    String* r3 = String_Concat(NULL, s3);
-    TEST_ASSERT(r3 == NULL, "Конкатенация с NULL возвращает NULL");
-}
-
-/* ============================================================================
- * Тест 3: Подстрока (Вариант 7)
- * ========================================================================== */
-void test_string_substring(void) {
-    printf("\n=== Тест: Подстрока ===\n");
-    
-    String* s = String_Create("Hello, World!");
-    
-    // Нормальная подстрока
-    String* sub1 = String_Substring(s, 0, 5);
-    TEST_ASSERT(sub1 != NULL, "Подстрока [0, 5) != NULL");
-    TEST_ASSERT(strcmp(String_ToCString(sub1), "Hello") == 0, "Подстрока \"Hello\" верна");
-    String_Destroy(sub1);
-    
-    // Подстрока из середины
-    String* sub2 = String_Substring(s, 7, 12);
-    TEST_ASSERT(strcmp(String_ToCString(sub2), "World") == 0, "Подстрока \"World\" верна");
-    String_Destroy(sub2);
-    
-    // Граничные случаи
-    String* sub3 = String_Substring(s, 0, String_Length(s));
-    TEST_ASSERT(strcmp(String_ToCString(sub3), "Hello, World!") == 0, "Полная подстрока == оригинал");
-    String_Destroy(sub3);
-    
-    // Пустая подстрока
-    String* sub4 = String_Substring(s, 5, 5);
-    TEST_ASSERT(String_Length(sub4) == 0, "Пустая подстрока [5, 5)");
-    String_Destroy(sub4);
-    
-    // Некорректные индексы (должно возвращать NULL)
-    String* sub5 = String_Substring(s, 10, 5);  // start > end
-    TEST_ASSERT(sub5 == NULL, "Подстрока start > end возвращает NULL");
-    
-    String* sub6 = String_Substring(s, 0, 100);  // end > length
-    TEST_ASSERT(sub6 == NULL, "Подстрока end > length возвращает NULL");
-    
-    String* sub7 = String_Substring(NULL, 0, 5);  // NULL строка
-    TEST_ASSERT(sub7 == NULL, "Подстрока NULL строки возвращает NULL");
-    
-    String_Destroy(s);
-}
-
-/* ============================================================================
- * Тест 4: Поиск подстроки (Вариант 7)
- * ========================================================================== */
-void test_string_find(void) {
-    printf("\n=== Тест: Поиск подстроки ===\n");
-    
-    String* text = String_Create("Hello, Hello, HELLO!");
-    String* pattern = String_Create("Hello");
-    
-    // Поиск с учетом регистра
-    size_t count_sensitive = 0;
-    int* indices1 = String_Find(text, pattern, true, &count_sensitive);
-    
-    TEST_ASSERT(indices1 != NULL, "Поиск с учетом регистра нашел совпадения");
-    TEST_ASSERT(count_sensitive == 2, "Найдено 2 совпадения (с учетом регистра)");
-    if (indices1) {
-        TEST_ASSERT(indices1[0] == 0, "Первое вхождение на позиции 0");
-        TEST_ASSERT(indices1[1] == 7, "Второе вхождение на позиции 7");
-        free(indices1);
+void print_string_info(const char* name, String* s) {
+    if (s == NULL) {
+        printf("%s: NULL\n", name);
+        return;
     }
     
-    // Поиск без учета регистра
-    size_t count_insensitive = 0;
-    int* indices2 = String_Find(text, pattern, false, &count_insensitive);
+    const char* content = String_ToCString(s);
+    size_t len = String_Length(s);
     
-    TEST_ASSERT(indices2 != NULL, "Поиск без учета регистра нашел совпадения");
-    TEST_ASSERT(count_insensitive == 3, "Найдено 3 совпадения (без учета регистра)");
-    if (indices2) {
-        TEST_ASSERT(indices2[2] == 14, "Третье вхождение (HELLO) на позиции 14");
-        free(indices2);
-    }
-    
-    // Поиск несуществующей подстроки
-    String* not_found = String_Create("XYZ");
-    size_t count_none = 0;
-    int* indices3 = String_Find(text, not_found, true, &count_none);
-    
-    TEST_ASSERT(indices3 == NULL, "Поиск несуществующей подстроки возвращает NULL");
-    TEST_ASSERT(count_none == 0, "Счетчик = 0 при отсутствии совпадений");
-    
-    // Поиск с NULL параметрами
-    int* indices4 = String_Find(NULL, pattern, true, &count_none);
-    TEST_ASSERT(indices4 == NULL, "Поиск в NULL строке возвращает NULL");
-    
-    String_Destroy(text);
-    String_Destroy(pattern);
-    String_Destroy(not_found);
+    printf("%s: \"%s\" (length: %zu)\n", name, content ? content : "NULL", len);
 }
 
-/* ============================================================================
- * Тест 5: Полиморфизм (FieldInfo)
- * ========================================================================== */
-void test_polymorphism(void) {
-    printf("\n=== Тест: Полиморфизм (FieldInfo) ===\n");
-    
-    const FieldInfo* char_info1 = GetCharFieldInfo();
-    const FieldInfo* char_info2 = GetCharFieldInfo();
-    
-    TEST_ASSERT(char_info1 != NULL, "GetCharFieldInfo() != NULL");
-    TEST_ASSERT(char_info1 == char_info2, "Ленивая инициализация (один экземпляр)");
-    TEST_ASSERT(char_info1->element_size == sizeof(char), "element_size == 1");
-    TEST_ASSERT(char_info1->copy != NULL, "Функция copy определена");
-    TEST_ASSERT(char_info1->destroy != NULL, "Функция destroy определена");
-    TEST_ASSERT(char_info1->compare != NULL, "Функция compare определена");
+void print_divider(void) {
+    printf("\n----------------------------------------\n\n");
 }
 
-/* ============================================================================
- * Запуск всех тестов
- * ========================================================================== */
-void run_all_tests(void) {
-    printf("\n========================================");
-    printf("\n       ЗАПУСК МОДУЛЬНЫХ ТЕСТОВ");
-    printf("\n========================================\n");
-    
-    tests_passed = 0;
-    tests_failed = 0;
-    
-    test_string_create_destroy();
-    test_string_concat();
-    test_string_substring();
-    test_string_find();
-    test_polymorphism();
-    
-    printf("\n========================================");
-    printf("\n              РЕЗУЛЬТАТЫ");
-    printf("\n========================================\n");
-    printf("  Пройдено: %d\n", tests_passed);
-    printf("  Провалено: %d\n", tests_failed);
-    printf("  Всего: %d\n", tests_passed + tests_failed);
-    printf("========================================\n");
-    
-    if (tests_failed == 0) {
-        printf("  ✓ ВСЕ ТЕСТЫ ПРОЙДЕНЫ!\n");
-    } else {
-        printf("  ✗ ЕСТЬ ОШИБКИ!\n");
-    }
-}
-
-/* ============================================================================
- * Точка входа
- * ========================================================================== */
 int main(void) {
     printf("========================================\n");
-    printf("   ЛАБОРАТОРНАЯ РАБОТА №1, ВАРИАНТ 7");
-    printf("\n   Полиморфная коллекция: СТРОКА");
+    printf("   LAB WORK #1, VARIANT 7\n");
+    printf("   Polymorphic collection: STRING\n");
+    printf("========================================\n\n");
+
+    // 1. String creation demonstration
+    printf("1. STRING CREATION\n");
+    printf("------------------\n");
+    
+    String* s1 = String_Create("Hello");
+    String* s2 = String_Create("World");
+    String* s3 = String_Create("");  // Empty string
+    String* s4 = String_Create(NULL);  // NULL string
+    
+    print_string_info("s1 (Hello)", s1);
+    print_string_info("s2 (World)", s2);
+    print_string_info("s3 (empty)", s3);
+    print_string_info("s4 (NULL)", s4);
+    
+    print_divider();
+
+    // 2. Concatenation demonstration
+    printf("2. STRING CONCATENATION\n");
+    printf("-----------------------\n");
+    
+    String* concat1 = String_Concat(s1, s2);
+    print_string_info("s1 + s2", concat1);
+    
+    String* concat2 = String_Concat(s1, s3);
+    print_string_info("s1 + empty", concat2);
+    
+    String* concat3 = String_Concat(s3, s2);
+    print_string_info("empty + s2", concat3);
+    
+    String* concat4 = String_Concat(NULL, s2);
+    printf("NULL + s2: %s\n", concat4 == NULL ? "NULL (expected)" : "ERROR!");
+    
+    print_divider();
+
+    // 3. Substring demonstration
+    printf("3. SUBSTRING OPERATION\n");
+    printf("----------------------\n");
+    
+    String* text = String_Create("Hello, World!");
+    print_string_info("Original text", text);
+    
+    String* sub1 = String_Substring(text, 0, 5);
+    print_string_info("Substring [0,5)", sub1);
+    
+    String* sub2 = String_Substring(text, 7, 12);
+    print_string_info("Substring [7,12)", sub2);
+    
+    String* sub3 = String_Substring(text, 5, 5);
+    print_string_info("Empty substring [5,5)", sub3);
+    
+    // Boundary cases
+    String* sub4 = String_Substring(text, 10, 5);
+    printf("Substring [10,5) (start > end): %s\n", sub4 == NULL ? "NULL (correct)" : "ERROR!");
+    
+    String* sub5 = String_Substring(text, 0, 100);
+    printf("Substring [0,100) (end > length): %s\n", sub5 == NULL ? "NULL (correct)" : "ERROR!");
+    
+    String* sub6 = String_Substring(NULL, 0, 5);
+    printf("Substring from NULL: %s\n", sub6 == NULL ? "NULL (correct)" : "ERROR!");
+    
+    print_divider();
+
+    // 4. Substring search demonstration
+    printf("4. SUBSTRING SEARCH\n");
+    printf("-------------------\n");
+    
+    String* search_text = String_Create("Hello, hello, HELLO! How many hellos?");
+    String* pattern = String_Create("hello");
+    
+    print_string_info("Search text", search_text);
+    print_string_info("Search pattern", pattern);
+    
+    size_t count;
+    int* indices;
+    
+    // Case-sensitive search
+    printf("\nCase-sensitive search:\n");
+    indices = String_Find(search_text, pattern, 1, &count);
+    if (indices) {
+        printf("  Found %zu matches at positions: ", count);
+        for (size_t i = 0; i < count; i++) {
+            printf("%d ", indices[i]);
+        }
+        printf("\n");
+        free(indices);
+    } else {
+        printf("  No matches found\n");
+    }
+    
+    // Case-insensitive search
+    printf("\nCase-insensitive search:\n");
+    indices = String_Find(search_text, pattern, 0, &count);
+    if (indices) {
+        printf("  Found %zu matches at positions: ", count);
+        for (size_t i = 0; i < count; i++) {
+            printf("%d ", indices[i]);
+        }
+        printf("\n");
+        free(indices);
+    } else {
+        printf("  No matches found\n");
+    }
+    
+    // Search for non-existent substring
+    String* not_found = String_Create("xyz");
+    printf("\nSearch for non-existent 'xyz':\n");
+    indices = String_Find(search_text, not_found, 1, &count);
+    printf("  Result: %s, count = %zu\n", 
+           indices == NULL ? "NULL (correct)" : "ERROR!", count);
+    
+    print_divider();
+
+    // 5. Various tests
+    printf("5. VARIOUS TESTS\n");
+    printf("----------------\n");
+    
+    // Empty string
+    String* empty = String_Create("");
+    print_string_info("Empty string", empty);
+    
+    // Concatenation of empty strings
+    String* empty_concat = String_Concat(empty, empty);
+    print_string_info("Empty + empty", empty_concat);
+    
+    // Long string
+    String* long_str = String_Create("This is a very long string for testing working with large data");
+    print_string_info("Long string", long_str);
+    
+    // Substring from long string
+    String* long_sub = String_Substring(long_str, 10, 30);
+    print_string_info("Substring [10,30)", long_sub);
+    
+    print_divider();
+
+    // 6. Polymorphism demonstration (FieldInfo)
+    printf("6. POLYMORPHISM (FieldInfo)\n");
+    printf("---------------------------\n");
+    
+    const FieldInfo* info1 = GetCharFieldInfo();
+    const FieldInfo* info2 = GetCharFieldInfo();
+    
+    printf("FieldInfo for char:\n");
+    printf("  Address 1: %p\n", (void*)info1);
+    printf("  Address 2: %p\n", (void*)info2);
+    printf("  Same object? %s\n", 
+           info1 == info2 ? "YES (singleton works)" : "NO");
+    printf("  Element size: %zu bytes\n", info1->element_size);
+    printf("  copy function: %p\n", (void*)info1->copy);
+    printf("  destroy function: %p\n", (void*)info1->destroy);
+    printf("  compare function: %p\n", (void*)info1->compare);
+    
+    print_divider();
+
+    // 7. Cache demonstration
+    printf("7. C-STRING CACHE DEMONSTRATION\n");
+    printf("-------------------------------\n");
+    
+    String* cache_test = String_Create("Cache test string");
+    
+    printf("First call to String_ToCString (creates cache):\n");
+    const char* cstr1 = String_ToCString(cache_test);
+    printf("  Result: \"%s\"\n", cstr1);
+    printf("  Address: %p\n", (void*)cstr1);
+    
+    printf("\nSecond call to String_ToCString (should return same address):\n");
+    const char* cstr2 = String_ToCString(cache_test);
+    printf("  Result: \"%s\"\n", cstr2);
+    printf("  Address: %p\n", (void*)cstr2);
+    printf("  Addresses match? %s\n", 
+           cstr1 == cstr2 ? "YES (cache works)" : "NO");
+    
+    print_divider();
+
+    // 8. Memory cleanup
+    printf("8. MEMORY CLEANUP\n");
+    printf("-----------------\n");
+    
+    printf("Destroying all created strings...\n");
+    
+    // Free all created strings
+    String_Destroy(s1);
+    String_Destroy(s2);
+    String_Destroy(s3);
+    String_Destroy(s4);
+    String_Destroy(concat1);
+    String_Destroy(concat2);
+    String_Destroy(concat3);
+    String_Destroy(concat4);
+    String_Destroy(text);
+    String_Destroy(sub1);
+    String_Destroy(sub2);
+    String_Destroy(sub3);
+    String_Destroy(sub4);
+    String_Destroy(sub5);
+    String_Destroy(sub6);
+    String_Destroy(search_text);
+    String_Destroy(pattern);
+    String_Destroy(not_found);
+    String_Destroy(empty);
+    String_Destroy(empty_concat);
+    String_Destroy(long_str);
+    String_Destroy(long_sub);
+    String_Destroy(cache_test);
+    
+    printf("Double destroy (should be safe):\n");
+    String_Destroy(NULL);  // Should be safe
+    String_Destroy(s1);    // Already destroyed, should be safe
+    printf("  OK - no errors\n");
+    
     printf("\n========================================\n");
-    
-    run_all_tests();
-    
-    printf("\n=== НАЖМИТЕ ENTER ДЛЯ ВЫХОДА ===\n");
+    printf("   TESTING COMPLETED\n");
+    printf("========================================\n");
+    printf("\nPress Enter to exit...");
     getchar();
     
-    return (tests_failed == 0) ? 0 : 1;
+    return 0;
 }

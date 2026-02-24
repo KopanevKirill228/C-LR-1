@@ -1,4 +1,3 @@
-// my_string.c
 #include "my_string.h"
 #include "Vector.h"
 #include "fieldinfo.h"
@@ -7,18 +6,14 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-/* ============================================================================
- * Внутренняя структура
- * ========================================================================== */
+
 struct _string {
     Vector* data;
     char* c_string_cache;
     bool cache_valid;
 };
 
-/* ============================================================================
- * Вспомогательные функции
- * ========================================================================== */
+
 
 static int char_compare_case_sensitive(void* a, void* b) {
     if (a == NULL || b == NULL) return 0;
@@ -38,9 +33,7 @@ static void String_InvalidateCache(String* s) {
     }
 }
 
-/* ============================================================================
- * Конструкторы / Деструктор
- * ========================================================================== */
+
 
 String* String_Create(const char* c_str) {
     const FieldInfo* char_type = GetCharFieldInfo();
@@ -116,9 +109,7 @@ void String_Destroy(String* s) {
     free(s);
 }
 
-/* ============================================================================
- * Операции Варианта 7
- * ========================================================================== */
+
 
 String* String_Concat(const String* s1, const String* s2) {
     if (s1 == NULL || s2 == NULL) {
@@ -231,9 +222,7 @@ int* String_Find(const String* s, const String* pattern, bool case_sensitive, si
     return indices;
 }
 
-/* ============================================================================
- * Утилиты
- * ========================================================================== */
+
 
 size_t String_Length(const String* s) {
     return (s != NULL && s->data != NULL) ? Vector_Size(s->data) : 0;

@@ -1,17 +1,10 @@
-// Vector.c
 #include "Vector.h"
 #include <stdlib.h>
 #include <string.h>
 
-/* ============================================================================
- * Forward declarations (объявления внутренних функций)
- * ========================================================================== */
 static size_t Vector_CalculateNewCapacity(size_t current_capacity, size_t min_required);
 static int Vector_Resize(Vector* vec, size_t new_capacity);
 
-/* ============================================================================
- * Внутренние функции
- * ========================================================================== */
 
 static size_t Vector_CalculateNewCapacity(size_t current_capacity, size_t min_required) {
     size_t new_capacity = current_capacity;
@@ -49,9 +42,7 @@ static int Vector_Resize(Vector* vec, size_t new_capacity) {
     return 0;
 }
 
-/* ============================================================================
- * Публичные функции API
- * ========================================================================== */
+
 
 Vector* Vector_Create(const FieldInfo* type_info, size_t initial_size) {
     if (type_info == NULL) {
