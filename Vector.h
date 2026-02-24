@@ -16,6 +16,8 @@ typedef struct _vector {
 
 Vector* Vector_Create(const FieldInfo* type_info, size_t initial_size);
 
+
+
 // Уничтожение вектора
 void Vector_Destroy(Vector* vec);
 
