@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/kiris/C-LR-1/build/cmake_install.cmake",
+		"C:/Users/kiris/C-LR-1/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
