@@ -33,4 +33,6 @@ int Vector_Set(Vector* vec, size_t index, void* element);
 // Получение текущего количества элементов
 size_t Vector_Size(const Vector* vec);
 
+int Vector_CheckType(const Vector* vec, const FieldInfo* expected_type);
+
 #endif

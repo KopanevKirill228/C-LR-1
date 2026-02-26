@@ -18,6 +18,6 @@ int* String_Find(const String* s, const String* pattern, bool case_sensitive, si
 
 
 size_t String_Length(const String* s);
-const char* String_ToCString(String* s);
+const char* String_ToCString(const String* s);
 
 #endif

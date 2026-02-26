@@ -211,29 +211,29 @@ __/src/my_string.c.s:
 	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/my_string.c.s
 .PHONY : __/src/my_string.c.s
 
-test_fieldinfo.obj: test_fieldinfo.c.obj
-.PHONY : test_fieldinfo.obj
+test_core.obj: test_core.c.obj
+.PHONY : test_core.obj
 
 # target to build an object file
-test_fieldinfo.c.obj:
-	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj
-.PHONY : test_fieldinfo.c.obj
+test_core.c.obj:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_core.c.obj
+.PHONY : test_core.c.obj
 
-test_fieldinfo.i: test_fieldinfo.c.i
-.PHONY : test_fieldinfo.i
+test_core.i: test_core.c.i
+.PHONY : test_core.i
 
 # target to preprocess a source file
-test_fieldinfo.c.i:
-	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.i
-.PHONY : test_fieldinfo.c.i
+test_core.c.i:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_core.c.i
+.PHONY : test_core.c.i
 
-test_fieldinfo.s: test_fieldinfo.c.s
-.PHONY : test_fieldinfo.s
+test_core.s: test_core.c.s
+.PHONY : test_core.s
 
 # target to generate assembly for a file
-test_fieldinfo.c.s:
-	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.s
-.PHONY : test_fieldinfo.c.s
+test_core.c.s:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_core.c.s
+.PHONY : test_core.c.s
 
 test_runner.obj: test_runner.c.obj
 .PHONY : test_runner.obj
@@ -302,9 +302,9 @@ help:
 	@echo ... __/src/my_string.obj
 	@echo ... __/src/my_string.i
 	@echo ... __/src/my_string.s
-	@echo ... test_fieldinfo.obj
-	@echo ... test_fieldinfo.i
-	@echo ... test_fieldinfo.s
+	@echo ... test_core.obj
+	@echo ... test_core.i
+	@echo ... test_core.s
 	@echo ... test_runner.obj
 	@echo ... test_runner.i
 	@echo ... test_runner.s

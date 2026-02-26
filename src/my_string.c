@@ -228,30 +228,34 @@ size_t String_Length(const String* s) {
     return (s != NULL && s->data != NULL) ? Vector_Size(s->data) : 0;
 }
 
-const char* String_ToCString(String* s) {
+const char* String_ToCString(const String* s) {
     if (s == NULL || s->data == NULL) {
         return NULL;
     }
+
+    String* mutable_s = (String*)s;
     
-    if (s->cache_valid && s->c_string_cache != NULL) {
-        return s->c_string_cache;
+    if (mutable_s->cache_valid && mutable_s->c_string_cache != NULL) {
+        return mutable_s->c_string_cache;
     }
     
-    String_InvalidateCache(s);
+
     
-    size_t len = String_Length(s);
+    String_InvalidateCache(mutable_s);
     
-    s->c_string_cache = (char*)malloc(len + 1);
-    if (s->c_string_cache == NULL) {
+    size_t len = String_Length(mutable_s);
+    
+    mutable_s->c_string_cache = (char*)malloc(len + 1);
+    if (mutable_s->c_string_cache == NULL) {
         return NULL;
     }
-    
+
     for (size_t i = 0; i < len; i++) {
-        const char* c = (const char*)Vector_Get(s->data, i);
-        s->c_string_cache[i] = (c != NULL) ? *c : '\0';
+        const char* c = (const char*)Vector_Get(mutable_s->data, i);
+        mutable_s->c_string_cache[i] = (c != NULL) ? *c : '\0';
     }
-    s->c_string_cache[len] = '\0';
-    s->cache_valid = true;
+    mutable_s->c_string_cache[len] = '\0';
+    mutable_s->cache_valid = true;
     
-    return s->c_string_cache;
+    return mutable_s->c_string_cache;
 }

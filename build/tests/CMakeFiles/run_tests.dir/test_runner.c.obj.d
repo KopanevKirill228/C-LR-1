@@ -1,6 +1,5 @@
 tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:\Users\kiris\C-LR-1\tests\test_runner.c \
- C:\Users\kiris\C-LR-1\tests\test_macros.h \
  C:/Users/kiris/Desktop/w64devkit/include/stdio.h \
  C:/Users/kiris/Desktop/w64devkit/include/corecrt_stdio_config.h \
  C:/Users/kiris/Desktop/w64devkit/include/corecrt.h \
@@ -12,26 +11,10 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/_mingw_off_t.h \
  C:/Users/kiris/Desktop/w64devkit/include/swprintf.inl \
  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdio_s.h \
- C:/Users/kiris/Desktop/w64devkit/include/stdlib.h \
- C:/Users/kiris/Desktop/w64devkit/include/corecrt_wstdlib.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
- C:/Users/kiris/Desktop/w64devkit/include/limits.h \
- C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
- C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdlib_s.h \
- C:/Users/kiris/Desktop/w64devkit/include/malloc.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
- C:/Users/kiris/Desktop/w64devkit/include/errno.h \
- C:/Users/kiris/Desktop/w64devkit/include/string.h \
- C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
- C:/Users/kiris/C-LR-1/src/my_string.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
- C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
- C:/Users/kiris/C-LR-1/src/fieldinfo.h \
  C:/Users/kiris/Desktop/w64devkit/include/windows.h \
  C:/Users/kiris/Desktop/w64devkit/include/sdkddkver.h \
  C:/Users/kiris/Desktop/w64devkit/include/excpt.h \
+ C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
  C:/Users/kiris/Desktop/w64devkit/include/stdarg.h \
  C:/Users/kiris/Desktop/w64devkit/include/_mingw_stdarg.h \
@@ -50,9 +33,13 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/psdk_inc/intrin-impl.h \
  C:/Users/kiris/Desktop/w64devkit/include/basetsd.h \
  C:/Users/kiris/Desktop/w64devkit/include/guiddef.h \
+ C:/Users/kiris/Desktop/w64devkit/include/string.h \
+ C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/x86intrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/x86gprintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/ia32intrin.h \
+ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
+ C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/adxintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/bmiintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/bmi2intrin.h \
@@ -93,6 +80,15 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/immintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mmintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xmmintrin.h \
+ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
+ C:/Users/kiris/Desktop/w64devkit/include/stdlib.h \
+ C:/Users/kiris/Desktop/w64devkit/include/corecrt_wstdlib.h \
+ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h \
+ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
+ C:/Users/kiris/Desktop/w64devkit/include/limits.h \
+ C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdlib_s.h \
+ C:/Users/kiris/Desktop/w64devkit/include/malloc.h \
+ C:/Users/kiris/Desktop/w64devkit/include/errno.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/emmintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/pmmintrin.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tmmintrin.h \
@@ -297,4 +293,6 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stralign_s.h \
  C:/Users/kiris/Desktop/w64devkit/include/winsvc.h \
  C:/Users/kiris/Desktop/w64devkit/include/mcx.h \
- C:/Users/kiris/Desktop/w64devkit/include/imm.h
+ C:/Users/kiris/Desktop/w64devkit/include/imm.h \
+ C:\Users\kiris\C-LR-1\tests\test_macros.h \
+ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h

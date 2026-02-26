@@ -86,11 +86,26 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/test_runner.c.s"
 	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\tests\test_runner.c -o CMakeFiles\run_tests.dir\test_runner.c.s
 
+tests/CMakeFiles/run_tests.dir/test_core.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
+tests/CMakeFiles/run_tests.dir/test_core.c.obj: tests/CMakeFiles/run_tests.dir/includes_C.rsp
+tests/CMakeFiles/run_tests.dir/test_core.c.obj: C:/Users/kiris/C-LR-1/tests/test_core.c
+tests/CMakeFiles/run_tests.dir/test_core.c.obj: tests/CMakeFiles/run_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object tests/CMakeFiles/run_tests.dir/test_core.c.obj"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT tests/CMakeFiles/run_tests.dir/test_core.c.obj -MF CMakeFiles\run_tests.dir\test_core.c.obj.d -o CMakeFiles\run_tests.dir\test_core.c.obj -c C:\Users\kiris\C-LR-1\tests\test_core.c
+
+tests/CMakeFiles/run_tests.dir/test_core.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/run_tests.dir/test_core.c.i"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\tests\test_core.c > CMakeFiles\run_tests.dir\test_core.c.i
+
+tests/CMakeFiles/run_tests.dir/test_core.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/test_core.c.s"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\tests\test_core.c -o CMakeFiles\run_tests.dir\test_core.c.s
+
 tests/CMakeFiles/run_tests.dir/test_string.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
 tests/CMakeFiles/run_tests.dir/test_string.c.obj: tests/CMakeFiles/run_tests.dir/includes_C.rsp
 tests/CMakeFiles/run_tests.dir/test_string.c.obj: C:/Users/kiris/C-LR-1/tests/test_string.c
 tests/CMakeFiles/run_tests.dir/test_string.c.obj: tests/CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object tests/CMakeFiles/run_tests.dir/test_string.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object tests/CMakeFiles/run_tests.dir/test_string.c.obj"
 	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT tests/CMakeFiles/run_tests.dir/test_string.c.obj -MF CMakeFiles\run_tests.dir\test_string.c.obj.d -o CMakeFiles\run_tests.dir\test_string.c.obj -c C:\Users\kiris\C-LR-1\tests\test_string.c
 
 tests/CMakeFiles/run_tests.dir/test_string.c.i: cmake_force
@@ -100,21 +115,6 @@ tests/CMakeFiles/run_tests.dir/test_string.c.i: cmake_force
 tests/CMakeFiles/run_tests.dir/test_string.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/test_string.c.s"
 	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\tests\test_string.c -o CMakeFiles\run_tests.dir\test_string.c.s
-
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj: tests/CMakeFiles/run_tests.dir/includes_C.rsp
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj: C:/Users/kiris/C-LR-1/tests/test_fieldinfo.c
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj: tests/CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj"
-	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj -MF CMakeFiles\run_tests.dir\test_fieldinfo.c.obj.d -o CMakeFiles\run_tests.dir\test_fieldinfo.c.obj -c C:\Users\kiris\C-LR-1\tests\test_fieldinfo.c
-
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/run_tests.dir/test_fieldinfo.c.i"
-	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\tests\test_fieldinfo.c > CMakeFiles\run_tests.dir\test_fieldinfo.c.i
-
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/test_fieldinfo.c.s"
-	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\tests\test_fieldinfo.c -o CMakeFiles\run_tests.dir\test_fieldinfo.c.s
 
 tests/CMakeFiles/run_tests.dir/__/src/my_string.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
 tests/CMakeFiles/run_tests.dir/__/src/my_string.c.obj: tests/CMakeFiles/run_tests.dir/includes_C.rsp
@@ -164,8 +164,8 @@ tests/CMakeFiles/run_tests.dir/__/src/char_type.c.s: cmake_force
 # Object files for target run_tests
 run_tests_OBJECTS = \
 "CMakeFiles/run_tests.dir/test_runner.c.obj" \
+"CMakeFiles/run_tests.dir/test_core.c.obj" \
 "CMakeFiles/run_tests.dir/test_string.c.obj" \
-"CMakeFiles/run_tests.dir/test_fieldinfo.c.obj" \
 "CMakeFiles/run_tests.dir/__/src/my_string.c.obj" \
 "CMakeFiles/run_tests.dir/__/src/Vector.c.obj" \
 "CMakeFiles/run_tests.dir/__/src/char_type.c.obj"
@@ -174,8 +174,8 @@ run_tests_OBJECTS = \
 run_tests_EXTERNAL_OBJECTS =
 
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/test_runner.c.obj
+tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/test_core.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/test_string.c.obj
-tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/my_string.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/Vector.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/char_type.c.obj

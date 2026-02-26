@@ -1,5 +1,5 @@
-tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj: \
- C:\Users\kiris\C-LR-1\tests\test_fieldinfo.c \
+tests/CMakeFiles/run_tests.dir/test_core.c.obj: \
+ C:\Users\kiris\C-LR-1\tests\test_core.c \
  C:\Users\kiris\C-LR-1\tests\test_macros.h \
  C:/Users/kiris/Desktop/w64devkit/include/stdio.h \
  C:/Users/kiris/Desktop/w64devkit/include/corecrt_stdio_config.h \
@@ -25,6 +25,7 @@ tests/CMakeFiles/run_tests.dir/test_fieldinfo.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/string.h \
  C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
- C:/Users/kiris/C-LR-1/src/fieldinfo.h \
+ C:/Users/kiris/C-LR-1/src/Vector.h C:/Users/kiris/C-LR-1/src/fieldinfo.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
- C:/Users/kiris/Desktop/w64devkit/include/stddef.h
+ C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
+ C:/Users/kiris/C-LR-1/src/fieldinfo.h
