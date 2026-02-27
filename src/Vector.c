@@ -66,7 +66,7 @@ Vector* Vector_Create(const FieldInfo* type_info, size_t initial_size) {
         return NULL;
     }
     
-    memset(vec->data, 0, bytes);
+    memset(vec->data, 0, bytes); //заполнение нулями bytes количество байт
     return vec;
 }
 
@@ -112,7 +112,7 @@ int Vector_Push(Vector* vec, void* element) {
             free(copied);
         }
     } else {
-        memcpy(dest, element, vec->type_info->element_size);
+        memcpy(dest, element, vec->type_info->element_size); //копирование данных
     }
     
     vec->size++;

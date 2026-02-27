@@ -1,7 +1,5 @@
 #ifndef Vector_H
 #define Vector_H
-//#pragma once более современный способ. потом может использую
-
 
 #include "fieldinfo.h"
 #include <stddef.h>

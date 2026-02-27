@@ -1,7 +1,7 @@
-// char_type.c
 #include "fieldinfo.h"
 #include <stdlib.h>
 #include <ctype.h>
+
 
 static void* char_copy(void* src) {
     if (src == NULL) return NULL;
@@ -12,10 +12,10 @@ static void* char_copy(void* src) {
     return new_char;
 }
 
-// ← ИСПРАВЛЕНО: не освобождаем память для char
+
 static void char_destroy(void* elem) {
     // char хранится inline в Vector, не нужно free()
-    (void)elem;  // Подавляем предупреждение о неиспользуемом параметре
+    (void)elem;
 }
 
 static int char_compare(void* a, void* b) {
@@ -33,7 +33,7 @@ const FieldInfo* GetCharFieldInfo(void) {
         if (_char_field_info != NULL) {
             _char_field_info->element_size = sizeof(char);
             _char_field_info->copy = char_copy;
-            _char_field_info->destroy = char_destroy;  // ← Теперь безопасно
+            _char_field_info->destroy = char_destroy;
             _char_field_info->compare = char_compare;
         }
     }
