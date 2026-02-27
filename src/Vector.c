@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+
+typedef struct _vector {
+    void* data; //сам массив
+    size_t size;
+    size_t capacity; // Выделенная память
+    const FieldInfo* type_info;
+} Vector;
+
+
 static size_t Vector_CalculateNewCapacity(size_t current_capacity, size_t min_required);
 static int Vector_Resize(Vector* vec, size_t new_capacity);
 

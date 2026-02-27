@@ -5,12 +5,7 @@
 #include <stddef.h>
 
 
-typedef struct _vector {
-    void* data; //сам массив
-    size_t size;
-    size_t capacity; // Выделенная память
-    const FieldInfo* type_info;
-} Vector;
+typedef struct _vector Vector;
 
 Vector* Vector_Create(const FieldInfo* type_info, size_t initial_size);
 

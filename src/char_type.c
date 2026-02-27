@@ -14,7 +14,6 @@ static void* char_copy(void* src) {
 
 
 static void char_destroy(void* elem) {
-    // char хранится inline в Vector, не нужно free()
     (void)elem;
 }
 
