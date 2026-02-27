@@ -1,4 +1,3 @@
-// tests/test_runner.c
 #include <stdio.h>
 #include <windows.h>  // Для кодировки консоли
 #include "test_macros.h"

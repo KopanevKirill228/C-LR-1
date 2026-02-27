@@ -1,4 +1,3 @@
-# tests/CMakeLists.txt
 set(TEST_SOURCES
     test_runner.c
     test_core.c

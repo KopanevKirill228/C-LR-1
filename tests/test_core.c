@@ -1,12 +1,11 @@
-// tests/test_core.c
 #include "test_macros.h"
 #include "Vector.h"
 #include "fieldinfo.h"
 #include <string.h>
 
-/* ============================================================================
- * Тесты: FieldInfo (char_type.c)
- * ========================================================================== */
+
+//Тесты: FieldInfo (char_type.c)
+
 void test_fieldinfo_basics(void) {
     TEST_GROUP("FieldInfo: Singleton и функции");
     
@@ -35,9 +34,9 @@ void test_fieldinfo_basics(void) {
     TEST_GROUP_END();
 }
 
-/* ============================================================================
- * Тесты: Vector (базовые операции)
- * ========================================================================== */
+
+//Тесты: Vector (базовые операции)
+
 void test_vector_basics(void) {
     TEST_GROUP("Vector: Create, Push, Get, Size");
     
@@ -90,9 +89,9 @@ void test_vector_basics(void) {
     TEST_GROUP_END();
 }
 
-/* ============================================================================
- * Тесты: Vector (расширенные: resize, empty, NULL)
- * ========================================================================== */
+
+//Тесты: Vector (расширенные: resize, empty, NULL)
+
 void test_vector_advanced(void) {
     TEST_GROUP("Vector: Resize, Empty, NULL handling");
     

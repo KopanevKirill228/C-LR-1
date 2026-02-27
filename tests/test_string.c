@@ -1,4 +1,3 @@
-// tests/test_string.c
 #include "test_macros.h"
 #include "my_string.h"
 #include "fieldinfo.h"
@@ -11,9 +10,7 @@ static const char* str_or_null(const String* s) {
     return cstr ? cstr : "(empty)";
 }
 
-/* ============================================================================
- * Тесты: String_Create, String_Destroy
- * ========================================================================== */
+// Тесты: String_Create, String_Destroy
 void test_string_create_destroy(void) {
     TEST_GROUP("String: Create / Destroy");
     
@@ -56,9 +53,9 @@ void test_string_create_destroy(void) {
     TEST_GROUP_END();
 }
 
-/* ============================================================================
- * Тесты: String_Concat
- * ========================================================================== */
+
+// Тесты: String_Concat
+
 void test_string_concat(void) {
     TEST_GROUP("String: Concatenation");
     
@@ -114,9 +111,9 @@ void test_string_concat(void) {
     TEST_GROUP_END();
 }
 
-/* ============================================================================
- * Тесты: String_Substring
- * ========================================================================== */
+
+//Тесты: String_Substring
+
 void test_string_substring(void) {
     TEST_GROUP("String: Substring");
     
@@ -176,9 +173,9 @@ void test_string_substring(void) {
     TEST_GROUP_END();
 }
 
-/* ============================================================================
- * Тесты: String_Find
- * ========================================================================== */
+
+//Тесты: String_Find
+
 void test_string_find(void) {
     TEST_GROUP("String: Find (search)");
     
@@ -255,9 +252,9 @@ void test_string_find(void) {
     TEST_GROUP_END();
 }
 
-/* ============================================================================
- * Тесты: String_Utils (Length, ToCString, cache)
- * ========================================================================== */
+
+//Тесты: String_Utils (Length, ToCString, cache)
+
 void test_string_utils(void) {
     TEST_GROUP("String: Utilities (Length, ToCString, cache)");
     
