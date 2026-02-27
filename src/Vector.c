@@ -4,12 +4,12 @@
 
 
 
-typedef struct _vector {
+struct _vector {
     void* data; //сам массив
     size_t size;
     size_t capacity; // Выделенная память
     const FieldInfo* type_info;
-} Vector;
+};
 
 
 static size_t Vector_CalculateNewCapacity(size_t current_capacity, size_t min_required);
