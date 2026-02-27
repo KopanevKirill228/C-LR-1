@@ -14,12 +14,13 @@ struct _string {
 };
 
 
-
+//сравнение по регистрам (с учетом регистра)
 static int char_compare_case_sensitive(void* a, void* b) {
     if (a == NULL || b == NULL) return 0;
     return *(char*)a - *(char*)b;
 }
 
+//сравнение без учета регистра
 static int char_compare_case_insensitive(void* a, void* b) {
     if (a == NULL || b == NULL) return 0;
     return tolower(*(char*)a) - tolower(*(char*)b);
