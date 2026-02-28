@@ -1,69 +1,76 @@
-// main.c
+// main.c - английская версия
 #include <stdio.h>
-#include <wchar.h>
 #include <locale.h>
 #include <stdlib.h>
-#include <windows.h>  // Для SetConsoleOutputCP
 #include "my_string.h"
 #include "fieldinfo.h"
 
-// Функция для настройки консоли Windows
-void setup_console(void) {
-    // Устанавливаем локаль для широких символов
-    setlocale(LC_ALL, ".UTF-8");  // или ".1251" для кириллицы
-    
-    // Для Windows нужно также установить кодировку консоли
-    SetConsoleOutputCP(CP_UTF8);      // Вывод в UTF-8
-    SetConsoleCP(CP_UTF8);             // Ввод в UTF-8
-    
-    // Альтернатива: использовать OEM кодировку (русскую)
-    // SetConsoleOutputCP(866);  // для кириллицы в старых консолях
-}
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 int main(void) {
-    setup_console();
+    setlocale(LC_ALL, "");
     
-    printf("=== String из char ===\n");
+    #ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    #endif
+    
+    printf("=== POLYMORPHIC STRING (Variant 7) ===\n\n");
+    
+    // 1. char string
+    printf("1. char string: ");
     char text[] = "Hello";
     String* char_str = String_Create(text, 5, GetCharFieldInfo());
     String_PrintLine(char_str);
-    String_Destroy(char_str);
     
-    printf("\n=== String из wchar_t ===\n");
-    wchar_t wtext[] = L"Привет";
-    String* wchar_str = String_Create(wtext, 6, GetWCharFieldInfo());
-    String_PrintLine(wchar_str);
+    // 2. int string
+    printf("\n2. int string: ");
+    int numbers[] = {1, 2, 3, 4, 5};
+    String* int_str = String_Create(numbers, 5, GetIntFieldInfo());
+    String_PrintLine(int_str);
     
-    printf("\n=== Конкатенация wchar_t ===\n");
-    wchar_t wtext2[] = L" Мир";
-    String* wchar_str2 = String_Create(wtext2, 4, GetWCharFieldInfo());
-    String* concat = String_Concat(wchar_str, wchar_str2);
-    String_PrintLine(concat);
+    // 3. Concatenation
+    printf("\n3. int concatenation: ");
+    int more_numbers[] = {6, 7, 8, 9, 10};
+    String* int_str2 = String_Create(more_numbers, 5, GetIntFieldInfo());
+    String* int_concat = String_Concat(int_str, int_str2);
+    String_PrintLine(int_concat);
     
-    printf("\n=== Подстрока wchar_t ===\n");
-    String* sub = String_Substring(wchar_str, 0, 5);
-    String_PrintLine(sub);
+    // 4. Substring
+    printf("\n4. int substring [2-5): ");
+    String* int_sub = String_Substring(int_str, 2, 5);
+    String_PrintLine(int_sub);
     
-    printf("\n=== Поиск в wchar_t ===\n");
-    wchar_t wpattern[] = L"ив";
-    String* pattern = String_Create(wpattern, 2, GetWCharFieldInfo());
-    size_t count = 0;
-    int* indices = String_Find(wchar_str, pattern, true, &count);
+    // 5. Search
+    printf("\n5. Search [3,4] in int string: ");
+    int pattern_data[] = {3, 4};
+    String* pattern = String_Create(pattern_data, 2, GetIntFieldInfo());
+    size_t count;
+    int* indices = String_Find(int_str, pattern, true, &count);
     if (indices != NULL) {
-        printf("Найдено: %zu совпадений\n", count);
+        printf("found %zu matches at positions: ", count);
+        for (size_t i = 0; i < count; i++) {
+            printf("%d ", indices[i]);
+        }
+        printf("\n");
         free(indices);
     }
     
-    printf("\n=== Проверка типов ===\n");
-    printf("char и wchar_t одинаковый тип? %s\n", 
-           String_SameType(char_str, wchar_str) ? "ДА" : "НЕТ");
+    // 6. Type check
+    printf("\n6. Type check:\n");
+    printf("  char and int are %s\n", 
+           String_SameType(char_str, int_str) ? "SAME" : "DIFFERENT");
     
-    String_Destroy(wchar_str);
-    String_Destroy(wchar_str2);
-    String_Destroy(concat);
-    String_Destroy(sub);
+    // Cleanup
+    String_Destroy(char_str);
+    String_Destroy(int_str);
+    String_Destroy(int_str2);
+    String_Destroy(int_concat);
+    String_Destroy(int_sub);
     String_Destroy(pattern);
     
-    printf("\n✅ ПОЛИМОРФИЗМ РАБОТАЕТ!\n");
+    printf("\n✅ POLYMORPHISM DEMONSTRATED SUCCESSFULLY!\n");
     return 0;
 }

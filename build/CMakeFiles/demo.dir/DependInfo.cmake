@@ -10,9 +10,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/kiris/C-LR-1/src/Vector.c" "CMakeFiles/demo.dir/src/Vector.c.obj" "gcc" "CMakeFiles/demo.dir/src/Vector.c.obj.d"
   "C:/Users/kiris/C-LR-1/src/char_type.c" "CMakeFiles/demo.dir/src/char_type.c.obj" "gcc" "CMakeFiles/demo.dir/src/char_type.c.obj.d"
+  "C:/Users/kiris/C-LR-1/src/int_type.c" "CMakeFiles/demo.dir/src/int_type.c.obj" "gcc" "CMakeFiles/demo.dir/src/int_type.c.obj.d"
   "C:/Users/kiris/C-LR-1/src/main.c" "CMakeFiles/demo.dir/src/main.c.obj" "gcc" "CMakeFiles/demo.dir/src/main.c.obj.d"
   "C:/Users/kiris/C-LR-1/src/my_string.c" "CMakeFiles/demo.dir/src/my_string.c.obj" "gcc" "CMakeFiles/demo.dir/src/my_string.c.obj.d"
-  "C:/Users/kiris/C-LR-1/src/wchar_type.c" "CMakeFiles/demo.dir/src/wchar_type.c.obj" "gcc" "CMakeFiles/demo.dir/src/wchar_type.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

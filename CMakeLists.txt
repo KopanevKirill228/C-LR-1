@@ -13,7 +13,7 @@ set(LIB_SOURCES
     src/my_string.c
     src/Vector.c
     src/char_type.c
-    src/wchar_type.c
+    src/int_type.c
 )
 
 set(LIB_HEADERS

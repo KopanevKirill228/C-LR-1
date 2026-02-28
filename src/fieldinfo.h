@@ -14,6 +14,6 @@ typedef struct _field_info {
 } FieldInfo;
 
 const FieldInfo* GetCharFieldInfo(void);
-const FieldInfo* GetWCharFieldInfo(void);  // ← Для wchar_t
+const FieldInfo* GetIntFieldInfo(void);
 
 #endif

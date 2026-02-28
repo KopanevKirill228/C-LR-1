@@ -131,20 +131,20 @@ CMakeFiles/demo.dir/src/char_type.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/demo.dir/src/char_type.c.s"
 	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\char_type.c -o CMakeFiles\demo.dir\src\char_type.c.s
 
-CMakeFiles/demo.dir/src/wchar_type.c.obj: CMakeFiles/demo.dir/flags.make
-CMakeFiles/demo.dir/src/wchar_type.c.obj: CMakeFiles/demo.dir/includes_C.rsp
-CMakeFiles/demo.dir/src/wchar_type.c.obj: C:/Users/kiris/C-LR-1/src/wchar_type.c
-CMakeFiles/demo.dir/src/wchar_type.c.obj: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/demo.dir/src/wchar_type.c.obj"
-	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/demo.dir/src/wchar_type.c.obj -MF CMakeFiles\demo.dir\src\wchar_type.c.obj.d -o CMakeFiles\demo.dir\src\wchar_type.c.obj -c C:\Users\kiris\C-LR-1\src\wchar_type.c
+CMakeFiles/demo.dir/src/int_type.c.obj: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/int_type.c.obj: CMakeFiles/demo.dir/includes_C.rsp
+CMakeFiles/demo.dir/src/int_type.c.obj: C:/Users/kiris/C-LR-1/src/int_type.c
+CMakeFiles/demo.dir/src/int_type.c.obj: CMakeFiles/demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/demo.dir/src/int_type.c.obj"
+	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/demo.dir/src/int_type.c.obj -MF CMakeFiles\demo.dir\src\int_type.c.obj.d -o CMakeFiles\demo.dir\src\int_type.c.obj -c C:\Users\kiris\C-LR-1\src\int_type.c
 
-CMakeFiles/demo.dir/src/wchar_type.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/demo.dir/src/wchar_type.c.i"
-	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\src\wchar_type.c > CMakeFiles\demo.dir\src\wchar_type.c.i
+CMakeFiles/demo.dir/src/int_type.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/demo.dir/src/int_type.c.i"
+	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\src\int_type.c > CMakeFiles\demo.dir\src\int_type.c.i
 
-CMakeFiles/demo.dir/src/wchar_type.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/demo.dir/src/wchar_type.c.s"
-	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\wchar_type.c -o CMakeFiles\demo.dir\src\wchar_type.c.s
+CMakeFiles/demo.dir/src/int_type.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/demo.dir/src/int_type.c.s"
+	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\int_type.c -o CMakeFiles\demo.dir\src\int_type.c.s
 
 # Object files for target demo
 demo_OBJECTS = \
@@ -152,7 +152,7 @@ demo_OBJECTS = \
 "CMakeFiles/demo.dir/src/my_string.c.obj" \
 "CMakeFiles/demo.dir/src/Vector.c.obj" \
 "CMakeFiles/demo.dir/src/char_type.c.obj" \
-"CMakeFiles/demo.dir/src/wchar_type.c.obj"
+"CMakeFiles/demo.dir/src/int_type.c.obj"
 
 # External object files for target demo
 demo_EXTERNAL_OBJECTS =
@@ -161,7 +161,7 @@ demo.exe: CMakeFiles/demo.dir/src/main.c.obj
 demo.exe: CMakeFiles/demo.dir/src/my_string.c.obj
 demo.exe: CMakeFiles/demo.dir/src/Vector.c.obj
 demo.exe: CMakeFiles/demo.dir/src/char_type.c.obj
-demo.exe: CMakeFiles/demo.dir/src/wchar_type.c.obj
+demo.exe: CMakeFiles/demo.dir/src/int_type.c.obj
 demo.exe: CMakeFiles/demo.dir/build.make
 demo.exe: CMakeFiles/demo.dir/linkLibs.rsp
 demo.exe: CMakeFiles/demo.dir/objects1.rsp

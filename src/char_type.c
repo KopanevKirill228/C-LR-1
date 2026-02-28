@@ -13,10 +13,11 @@ static void* char_copy(void* src) {
     return new_char;
 }
 
+// ПРАВИЛЬНО: для простых типов destroy ничего не делает
 static void char_destroy(void* elem) {
-    if (elem != NULL) {
-        free(elem);
-    }
+    (void)elem;  // Подавляем warning о неиспользуемом параметре
+    // Не освобождаем elem, так как он указывает внутрь массива Vector
+    // Вся память будет освобождена при free(vec->data)
 }
 
 static int char_compare(void* a, void* b) {
@@ -26,10 +27,9 @@ static int char_compare(void* a, void* b) {
     return *(char*)a - *(char*)b;
 }
 
-// ← Печать БЕЗ разделителей (как строка!)
 static void char_print(FILE* out, void* elem) {
     if (elem != NULL) {
-        fprintf(out, "%c", *(char*)elem);  // ← Нет запятых!
+        fprintf(out, "%c", *(char*)elem);
     }
 }
 
@@ -41,7 +41,7 @@ const FieldInfo* GetCharFieldInfo(void) {
         if (_char_field_info != NULL) {
             _char_field_info->element_size = sizeof(char);
             _char_field_info->copy = char_copy;
-            _char_field_info->destroy = char_destroy;
+            _char_field_info->destroy = char_destroy;  // ← теперь правильно
             _char_field_info->compare = char_compare;
             _char_field_info->print = char_print;
         }

@@ -199,6 +199,30 @@ src/char_type.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/char_type.c.s
 .PHONY : src/char_type.c.s
 
+src/int_type.obj: src/int_type.c.obj
+.PHONY : src/int_type.obj
+
+# target to build an object file
+src/int_type.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/int_type.c.obj
+.PHONY : src/int_type.c.obj
+
+src/int_type.i: src/int_type.c.i
+.PHONY : src/int_type.i
+
+# target to preprocess a source file
+src/int_type.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/int_type.c.i
+.PHONY : src/int_type.c.i
+
+src/int_type.s: src/int_type.c.s
+.PHONY : src/int_type.s
+
+# target to generate assembly for a file
+src/int_type.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/int_type.c.s
+.PHONY : src/int_type.c.s
+
 src/main.obj: src/main.c.obj
 .PHONY : src/main.obj
 
@@ -247,30 +271,6 @@ src/my_string.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/my_string.c.s
 .PHONY : src/my_string.c.s
 
-src/wchar_type.obj: src/wchar_type.c.obj
-.PHONY : src/wchar_type.obj
-
-# target to build an object file
-src/wchar_type.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/wchar_type.c.obj
-.PHONY : src/wchar_type.c.obj
-
-src/wchar_type.i: src/wchar_type.c.i
-.PHONY : src/wchar_type.i
-
-# target to preprocess a source file
-src/wchar_type.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/wchar_type.c.i
-.PHONY : src/wchar_type.c.i
-
-src/wchar_type.s: src/wchar_type.c.s
-.PHONY : src/wchar_type.s
-
-# target to generate assembly for a file
-src/wchar_type.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/wchar_type.c.s
-.PHONY : src/wchar_type.c.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -288,15 +288,15 @@ help:
 	@echo ... src/char_type.obj
 	@echo ... src/char_type.i
 	@echo ... src/char_type.s
+	@echo ... src/int_type.obj
+	@echo ... src/int_type.i
+	@echo ... src/int_type.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
 	@echo ... src/my_string.obj
 	@echo ... src/my_string.i
 	@echo ... src/my_string.s
-	@echo ... src/wchar_type.obj
-	@echo ... src/wchar_type.i
-	@echo ... src/wchar_type.s
 .PHONY : help
 
 
