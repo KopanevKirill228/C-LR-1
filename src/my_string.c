@@ -1,6 +1,6 @@
 // my_string.c
 #include "my_string.h"
-#include "Vector.h"
+#include "dynamic_array.h"
 #include "fieldinfo.h"
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 struct _string {
-    Vector* data;
+    DynamicArray* data;
     const FieldInfo* type_info;  // ← Храним тип для полиморфизма
 };
 
@@ -19,7 +19,7 @@ String* String_Create(const void* data, size_t element_count, const FieldInfo* t
     if (s == NULL) return NULL;
     
     s->type_info = type_info;
-    s->data = Vector_Create(type_info, element_count);
+    s->data = DynamicArray_Create(type_info, element_count);  // ← Обновлено
     if (s->data == NULL) {
         free(s);
         return NULL;
@@ -29,7 +29,7 @@ String* String_Create(const void* data, size_t element_count, const FieldInfo* t
         for (size_t i = 0; i < element_count; i++) {
             const unsigned char* byte_ptr = (const unsigned char*)data;
             const void* elem = byte_ptr + i * type_info->element_size;
-            if (Vector_Push(s->data, (void*)elem) != 0) {
+            if (DynamicArray_Push(s->data, (void*)elem) != 0) {  // ← Обновлено
                 String_Destroy(s);
                 return NULL;
             }
@@ -45,7 +45,7 @@ String* String_CreateEmpty(size_t capacity, const FieldInfo* type_info) {
 
 void String_Destroy(String* s) {
     if (s == NULL) return;
-    if (s->data != NULL) Vector_Destroy(s->data);
+    if (s->data != NULL) DynamicArray_Destroy(s->data);  // ← Обновлено
     free(s);
 }
 
@@ -60,11 +60,11 @@ String* String_Concat(const String* s1, const String* s2) {
     
     for (size_t i = 0; i < len1; i++) {
         const void* elem = String_GetElement(s1, i);
-        if (elem != NULL) Vector_Push(result->data, (void*)elem);
+        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);  // ← Обновлено
     }
     for (size_t i = 0; i < len2; i++) {
         const void* elem = String_GetElement(s2, i);
-        if (elem != NULL) Vector_Push(result->data, (void*)elem);
+        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);  // ← Обновлено
     }
     
     return result;
@@ -81,7 +81,7 @@ String* String_Substring(const String* s, size_t start, size_t end) {
     
     for (size_t i = start; i < end; i++) {
         const void* elem = String_GetElement(s, i);
-        if (elem != NULL) Vector_Push(result->data, (void*)elem);
+        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);  // ← Обновлено
     }
     
     return result;
@@ -135,12 +135,12 @@ int* String_Find(const String* s, const String* pattern, bool match_case, size_t
 }
 
 size_t String_Length(const String* s) {
-    return (s != NULL && s->data != NULL) ? Vector_Size(s->data) : 0;
+    return (s != NULL && s->data != NULL) ? DynamicArray_Size(s->data) : 0;  // ← Обновлено
 }
 
 const void* String_GetElement(const String* s, size_t index) {
     if (s == NULL || s->data == NULL) return NULL;
-    return Vector_Get(s->data, index);
+    return DynamicArray_Get(s->data, index);  // ← Обновлено
 }
 
 // ← УНИВЕРСАЛЬНАЯ ПЕЧАТЬ (как СТРОКА, не массив!)

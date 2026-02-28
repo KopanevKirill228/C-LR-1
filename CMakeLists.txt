@@ -11,14 +11,14 @@ endif()
 # === Исходные файлы (в папке src/) ===
 set(LIB_SOURCES
     src/my_string.c
-    src/Vector.c
+    src/Dynamic_Array.c
     src/char_type.c
     src/int_type.c
 )
 
 set(LIB_HEADERS
     src/my_string.h
-    src/Vector.h
+    src/Dynamic_Array.h
     src/fieldinfo.h
 )
 

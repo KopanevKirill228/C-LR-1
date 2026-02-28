@@ -16,8 +16,7 @@ static void* char_copy(void* src) {
 // ПРАВИЛЬНО: для простых типов destroy ничего не делает
 static void char_destroy(void* elem) {
     (void)elem;  // Подавляем warning о неиспользуемом параметре
-    // Не освобождаем elem, так как он указывает внутрь массива Vector
-    // Вся память будет освобождена при free(vec->data)
+
 }
 
 static int char_compare(void* a, void* b) {

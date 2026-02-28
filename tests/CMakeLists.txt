@@ -7,7 +7,7 @@ set(TEST_SOURCES
 # Исходные файлы библиотеки (чтобы тесты видели реализацию)
 set(LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/my_string.c
-    ${CMAKE_SOURCE_DIR}/src/Vector.c
+    ${CMAKE_SOURCE_DIR}/src/Dynamic_Array.c
     ${CMAKE_SOURCE_DIR}/src/char_type.c
 )
 
