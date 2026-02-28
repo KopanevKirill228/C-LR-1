@@ -1,67 +1,35 @@
+// my_string.c
 #include "my_string.h"
 #include "Vector.h"
 #include "fieldinfo.h"
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include <stdbool.h>
-
+#include <stdio.h>
 
 struct _string {
     Vector* data;
-    char* c_string_cache;
-    bool cache_valid;
+    const FieldInfo* type_info;  // ← Храним тип для полиморфизма
 };
 
-
-//сравнение по регистрам (с учетом регистра)
-static int char_compare_case_sensitive(void* a, void* b) {
-    if (a == NULL || b == NULL) return 0;
-    return *(char*)a - *(char*)b;
-}
-
-//сравнение без учета регистра
-static int char_compare_case_insensitive(void* a, void* b) {
-    if (a == NULL || b == NULL) return 0;
-    return tolower(*(char*)a) - tolower(*(char*)b);
-}
-
-static void String_InvalidateCache(String* s) {
-    if (s != NULL && s->c_string_cache != NULL) {
-        free(s->c_string_cache);
-        s->c_string_cache = NULL;
-        s->cache_valid = false;
-    }
-}
-
-
-
-String* String_Create(const char* c_str) {
-    const FieldInfo* char_type = GetCharFieldInfo();
-    if (char_type == NULL) {
-        return NULL;
-    }
+String* String_Create(const void* data, size_t element_count, const FieldInfo* type_info) {
+    if (type_info == NULL) return NULL;
     
     String* s = (String*)malloc(sizeof(String));
-    if (s == NULL) {
-        return NULL;
-    }
+    if (s == NULL) return NULL;
     
-    size_t len = (c_str != NULL) ? strlen(c_str) : 0;
-    
-    s->data = Vector_Create(char_type, len + 1);
+    s->type_info = type_info;
+    s->data = Vector_Create(type_info, element_count);
     if (s->data == NULL) {
         free(s);
         return NULL;
     }
     
-    s->c_string_cache = NULL;
-    s->cache_valid = false;
-    
-    if (c_str != NULL) {
-        for (size_t i = 0; i < len; i++) {
-            char c = c_str[i];
-            if (Vector_Push(s->data, &c) != 0) {
+    if (data != NULL && element_count > 0) {
+        for (size_t i = 0; i < element_count; i++) {
+            const unsigned char* byte_ptr = (const unsigned char*)data;
+            const void* elem = byte_ptr + i * type_info->element_size;
+            if (Vector_Push(s->data, (void*)elem) != 0) {
                 String_Destroy(s);
                 return NULL;
             }
@@ -71,139 +39,82 @@ String* String_Create(const char* c_str) {
     return s;
 }
 
-String* String_CreateEmpty(size_t capacity) {
-    const FieldInfo* char_type = GetCharFieldInfo();
-    if (char_type == NULL) {
-        return NULL;
-    }
-    
-    String* s = (String*)malloc(sizeof(String));
-    if (s == NULL) {
-        return NULL;
-    }
-    
-    s->data = Vector_Create(char_type, capacity);
-    if (s->data == NULL) {
-        free(s);
-        return NULL;
-    }
-    
-    s->c_string_cache = NULL;
-    s->cache_valid = false;
-    
-    return s;
+String* String_CreateEmpty(size_t capacity, const FieldInfo* type_info) {
+    return String_Create(NULL, 0, type_info);
 }
 
 void String_Destroy(String* s) {
-    if (s == NULL) {
-        return;
-    }
-    
-    if (s->c_string_cache != NULL) {
-        free(s->c_string_cache);
-    }
-    
-    if (s->data != NULL) {
-        Vector_Destroy(s->data);
-    }
-    
+    if (s == NULL) return;
+    if (s->data != NULL) Vector_Destroy(s->data);
     free(s);
 }
 
-
-
 String* String_Concat(const String* s1, const String* s2) {
-    if (s1 == NULL || s2 == NULL) {
-        return NULL;
-    }
+    if (s1 == NULL || s2 == NULL || !String_SameType(s1, s2)) return NULL;
     
     size_t len1 = String_Length(s1);
     size_t len2 = String_Length(s2);
     
-    String* result = String_CreateEmpty(len1 + len2);
-    if (result == NULL) {
-        return NULL;
-    }
+    String* result = String_CreateEmpty(len1 + len2, s1->type_info);
+    if (result == NULL) return NULL;
     
     for (size_t i = 0; i < len1; i++) {
-        const char* c = (const char*)Vector_Get(s1->data, i);
-        if (c != NULL) {
-            Vector_Push(result->data, (void*)c);
-        }
+        const void* elem = String_GetElement(s1, i);
+        if (elem != NULL) Vector_Push(result->data, (void*)elem);
     }
-    
     for (size_t i = 0; i < len2; i++) {
-        const char* c = (const char*)Vector_Get(s2->data, i);
-        if (c != NULL) {
-            Vector_Push(result->data, (void*)c);
-        }
+        const void* elem = String_GetElement(s2, i);
+        if (elem != NULL) Vector_Push(result->data, (void*)elem);
     }
     
     return result;
 }
 
 String* String_Substring(const String* s, size_t start, size_t end) {
-    if (s == NULL) {
-        return NULL;
-    }
+    if (s == NULL) return NULL;
     
     size_t len = String_Length(s);
+    if (start > len || end > len || start > end) return NULL;
     
-    if (start > len || end > len || start > end) {
-        return NULL;
-    }
-    
-    String* result = String_CreateEmpty(end - start);
-    if (result == NULL) {
-        return NULL;
-    }
+    String* result = String_CreateEmpty(end - start, s->type_info);
+    if (result == NULL) return NULL;
     
     for (size_t i = start; i < end; i++) {
-        const char* c = (const char*)Vector_Get(s->data, i);
-        if (c != NULL) {
-            Vector_Push(result->data, (void*)c);
-        }
+        const void* elem = String_GetElement(s, i);
+        if (elem != NULL) Vector_Push(result->data, (void*)elem);
     }
     
     return result;
 }
 
-int* String_Find(const String* s, const String* pattern, bool case_sensitive, size_t* out_count) {
-    if (s == NULL || pattern == NULL || out_count == NULL) {
+int* String_Find(const String* s, const String* pattern, bool match_case, size_t* out_count) {
+    if (s == NULL || pattern == NULL || out_count == NULL || !String_SameType(s, pattern)) {
         return NULL;
     }
     
     *out_count = 0;
-    
     size_t text_len = String_Length(s);
     size_t pattern_len = String_Length(pattern);
     
-    if (pattern_len == 0 || pattern_len > text_len) {
-        return NULL;
-    }
+    if (pattern_len == 0 || pattern_len > text_len) return NULL;
     
     int* indices = (int*)malloc(text_len * sizeof(int));
-    if (indices == NULL) {
-        return NULL;
-    }
+    if (indices == NULL) return NULL;
     
-    int (*compare_func)(void*, void*) = case_sensitive 
-        ? char_compare_case_sensitive 
-        : char_compare_case_insensitive;
+    int (*compare_func)(void*, void*) = s->type_info->compare;
     
     for (size_t i = 0; i <= text_len - pattern_len; i++) {
         bool match = true;
-        
         for (size_t j = 0; j < pattern_len; j++) {
-            const char* text_char = (const char*)Vector_Get(s->data, i + j);
-            const char* pattern_char = (const char*)Vector_Get(pattern->data, j);
+            const void* text_elem = String_GetElement(s, i + j);
+            const void* pattern_elem = String_GetElement(pattern, j);
             
-            if (text_char == NULL || pattern_char == NULL) {
+            if (text_elem == NULL || pattern_elem == NULL) {
                 match = false;
                 break;
             }
             
-            if (compare_func((void*)text_char, (void*)pattern_char) != 0) {
+            if (compare_func((void*)text_elem, (void*)pattern_elem) != 0) {
                 match = false;
                 break;
             }
@@ -223,40 +134,41 @@ int* String_Find(const String* s, const String* pattern, bool case_sensitive, si
     return indices;
 }
 
-
-
 size_t String_Length(const String* s) {
     return (s != NULL && s->data != NULL) ? Vector_Size(s->data) : 0;
 }
 
-const char* String_ToCString(const String* s) {
-    if (s == NULL || s->data == NULL) {
-        return NULL;
-    }
+const void* String_GetElement(const String* s, size_t index) {
+    if (s == NULL || s->data == NULL) return NULL;
+    return Vector_Get(s->data, index);
+}
 
-    String* mutable_s = (String*)s;
+// ← УНИВЕРСАЛЬНАЯ ПЕЧАТЬ (как СТРОКА, не массив!)
+void String_Print(FILE* out, const String* s) {
+    if (s == NULL || s->data == NULL || s->type_info == NULL) return;
     
-    if (mutable_s->cache_valid && mutable_s->c_string_cache != NULL) {
-        return mutable_s->c_string_cache;
+    if (s->type_info->print == NULL) {
+        fprintf(out, "[no print]");
+        return;
     }
     
+    // ← Нет скобок и запятых — вывод как строка!
+    for (size_t i = 0; i < String_Length(s); i++) {
+        const void* elem = String_GetElement(s, i);
+        s->type_info->print(out, (void*)elem);  // ← Полиморфный вызов
+    }
+}
 
-    
-    String_InvalidateCache(mutable_s);
-    
-    size_t len = String_Length(mutable_s);
-    
-    mutable_s->c_string_cache = (char*)malloc(len + 1);
-    if (mutable_s->c_string_cache == NULL) {
-        return NULL;
-    }
+void String_PrintLine(const String* s) {
+    String_Print(stdout, s);
+    printf("\n");
+}
 
-    for (size_t i = 0; i < len; i++) {
-        const char* c = (const char*)Vector_Get(mutable_s->data, i);
-        mutable_s->c_string_cache[i] = (c != NULL) ? *c : '\0';
-    }
-    mutable_s->c_string_cache[len] = '\0';
-    mutable_s->cache_valid = true;
-    
-    return mutable_s->c_string_cache;
+const FieldInfo* String_GetType(const String* s) {
+    return (s != NULL) ? s->type_info : NULL;
+}
+
+bool String_SameType(const String* s1, const String* s2) {
+    if (s1 == NULL || s2 == NULL) return false;
+    return (s1->type_info == s2->type_info);
 }

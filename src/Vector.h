@@ -15,7 +15,7 @@ Vector* Vector_Create(const FieldInfo* type_info, size_t initial_size);
 void Vector_Destroy(Vector* vec);
 
 // Добавление элемента в конец
-int Vector_Push(Vector* vec, void* element);
+int Vector_Push(Vector* vec, void* element); //append 
 
 // Получение элемента по индексу (только чтение)
 const void* Vector_Get(const Vector* vec, size_t index);

@@ -247,6 +247,30 @@ src/my_string.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/my_string.c.s
 .PHONY : src/my_string.c.s
 
+src/wchar_type.obj: src/wchar_type.c.obj
+.PHONY : src/wchar_type.obj
+
+# target to build an object file
+src/wchar_type.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/wchar_type.c.obj
+.PHONY : src/wchar_type.c.obj
+
+src/wchar_type.i: src/wchar_type.c.i
+.PHONY : src/wchar_type.i
+
+# target to preprocess a source file
+src/wchar_type.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/wchar_type.c.i
+.PHONY : src/wchar_type.c.i
+
+src/wchar_type.s: src/wchar_type.c.s
+.PHONY : src/wchar_type.s
+
+# target to generate assembly for a file
+src/wchar_type.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/wchar_type.c.s
+.PHONY : src/wchar_type.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -270,6 +294,9 @@ help:
 	@echo ... src/my_string.obj
 	@echo ... src/my_string.i
 	@echo ... src/my_string.s
+	@echo ... src/wchar_type.obj
+	@echo ... src/wchar_type.i
+	@echo ... src/wchar_type.s
 .PHONY : help
 
 

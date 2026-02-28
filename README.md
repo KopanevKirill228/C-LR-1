@@ -27,7 +27,9 @@
 ### Сборка проекта
 
 ```powershell
-# 1. Перейти в папку проекта
+# 1. Перейти в папку проекта, очистить
+
+Remove-Item -Recurse -Force build/
 
 # 2. Настроить сборку
 cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug

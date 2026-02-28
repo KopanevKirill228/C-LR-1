@@ -5,9 +5,9 @@
 
 
 struct _vector {
-    void* data; //сам массив
+    void* data; //указатель на сам динамич. массив
     size_t size;
-    size_t capacity; // Выделенная память
+    size_t capacity; // кол-во элементов которое может влезть в текущий блок памяти
     const FieldInfo* type_info;
 };
 
@@ -110,7 +110,7 @@ int Vector_Push(Vector* vec, void* element) {
     }
     
     unsigned char* byte_ptr = (unsigned char*)vec->data;
-    void* dest = byte_ptr + vec->size * vec->type_info->element_size;
+    void* dest = byte_ptr + vec->size * vec->type_info->element_size; //адрес записи новой переменной
     
     if (vec->type_info->copy != NULL) {
         void* copied = vec->type_info->copy(element);
@@ -143,7 +143,7 @@ int Vector_Set(Vector* vec, size_t index, void* element) {
     }
     
     unsigned char* byte_ptr = (unsigned char*)vec->data;
-    void* dest = byte_ptr + index * vec->type_info->element_size;
+    void* dest = byte_ptr + index * vec->type_info->element_size; 
     
     if (vec->type_info->destroy != NULL) {
         vec->type_info->destroy(dest);

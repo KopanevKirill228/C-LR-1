@@ -1,167 +1,69 @@
+// main.c
 #include <stdio.h>
+#include <wchar.h>
+#include <locale.h>
 #include <stdlib.h>
-#include <string.h>
-#include <windows.h>
+#include <windows.h>  // Для SetConsoleOutputCP
 #include "my_string.h"
 #include "fieldinfo.h"
 
+// Функция для настройки консоли Windows
+void setup_console(void) {
+    // Устанавливаем локаль для широких символов
+    setlocale(LC_ALL, ".UTF-8");  // или ".1251" для кириллицы
+    
+    // Для Windows нужно также установить кодировку консоли
+    SetConsoleOutputCP(CP_UTF8);      // Вывод в UTF-8
+    SetConsoleCP(CP_UTF8);             // Ввод в UTF-8
+    
+    // Альтернатива: использовать OEM кодировку (русскую)
+    // SetConsoleOutputCP(866);  // для кириллицы в старых консолях
+}
+
 int main(void) {
-    // Настройка кодировки для русского текста
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
+    setup_console();
     
-    int choice;
+    printf("=== String из char ===\n");
+    char text[] = "Hello";
+    String* char_str = String_Create(text, 5, GetCharFieldInfo());
+    String_PrintLine(char_str);
+    String_Destroy(char_str);
     
-    do {
-        // Показываем меню
-        printf("\n");
-        printf("====================================\n");
-        printf("  Лабораторная работа N1, Вариант 7\n");
-        printf("  Полиморфная коллекция: СТРОКА\n");
-        printf("====================================\n");
-        printf("  1. Создать строку\n");
-        printf("  2. Конкатенация строк\n");
-        printf("  3. Получить подстроку\n");
-        printf("  4. Поиск подстроки\n");
-        printf("  5. Запустить автотесты\n");
-        printf("  0. Выход\n");
-        printf("====================================\n");
-        printf("  Ваш выбор: ");
-        
-        // Ввод выбора
-        if (scanf("%d", &choice) != 1) {
-            choice = -1;
-        }
-        while (getchar() != '\n');  // Очистка буфера
-        
-        // ==================== 1. Создание строки ====================
-        if (choice == 1) {
-            char input[256];
-            printf("\nВведите строку: ");
-            fgets(input, sizeof(input), stdin);
-            input[strcspn(input, "\n")] = 0;  // Удалить Enter
-            
-            String* s = String_Create(input);
-            if (s != NULL) {
-                printf("Результат: \"%s\"\n", String_ToCString(s));
-                printf("Длина: %zu\n", String_Length(s));
-                String_Destroy(s);
-            } else {
-                printf("Ошибка создания строки\n");
-            }
-        }
-        
-        // ==================== 2. Конкатенация ====================
-        else if (choice == 2) {
-            char s1[256], s2[256];
-            printf("\nВведите первую строку: ");
-            fgets(s1, sizeof(s1), stdin);
-            s1[strcspn(s1, "\n")] = 0;
-            
-            printf("Введите вторую строку: ");
-            fgets(s2, sizeof(s2), stdin);
-            s2[strcspn(s2, "\n")] = 0;
-            
-            String* str1 = String_Create(s1);
-            String* str2 = String_Create(s2);
-            String* result = String_Concat(str1, str2);
-            
-            if (result != NULL) {
-                printf("Результат: \"%s\"\n", String_ToCString(result));
-                String_Destroy(result);
-            } else {
-                printf("Ошибка конкатенации\n");
-            }
-            
-            String_Destroy(str1);
-            String_Destroy(str2);
-        }
-        
-        // ==================== 3. Подстрока ====================
-        else if (choice == 3) {
-            char input[256];
-            size_t start, end;
-            
-            printf("\nВведите строку: ");
-            fgets(input, sizeof(input), stdin);
-            input[strcspn(input, "\n")] = 0;
-            
-            printf("Введите начальный индекс: ");
-            scanf("%zu", &start);
-            
-            printf("Введите конечный индекс: ");
-            scanf("%zu", &end);
-            while (getchar() != '\n');
-            
-            String* s = String_Create(input);
-            String* sub = String_Substring(s, start, end);
-            
-            if (sub != NULL) {
-                printf("Результат: \"%s\"\n", String_ToCString(sub));
-                String_Destroy(sub);
-            } else {
-                printf("Ошибка: некорректный диапазон\n");
-            }
-            
-            String_Destroy(s);
-        }
-        
-        // ==================== 4. Поиск ====================
-        else if (choice == 4) {
-            char text[256], pattern[256];
-            int case_sensitive;
-            
-            printf("\nВведите строку: ");
-            fgets(text, sizeof(text), stdin);
-            text[strcspn(text, "\n")] = 0;
-            
-            printf("Введите искомую подстроку: ");
-            fgets(pattern, sizeof(pattern), stdin);
-            pattern[strcspn(pattern, "\n")] = 0;
-            
-            printf("Учитывать регистр? (1 - да, 0 - нет): ");
-            scanf("%d", &case_sensitive);
-            while (getchar() != '\n');
-            
-            String* s_text = String_Create(text);
-            String* s_pattern = String_Create(pattern);
-            
-            size_t count = 0;
-            int* indices = String_Find(s_text, s_pattern, case_sensitive, &count);
-            
-            if (indices != NULL) {
-                printf("Найдено совпадений: %zu\n", count);
-                printf("Позиции: ");
-                for (size_t i = 0; i < count; i++) {
-                    printf("%d ", indices[i]);
-                }
-                printf("\n");
-                free(indices);
-            } else {
-                printf("Совпадений не найдено\n");
-            }
-            
-            String_Destroy(s_text);
-            String_Destroy(s_pattern);
-        }
-        
-        // ==================== 5. Автотесты ====================
-        else if (choice == 5) {
-            printf("\nЗапуск тестов...\n\n");
-            system("build\\tests\\run_tests.exe");
-        }
-        
-        // ==================== 0. Выход ====================
-        else if (choice == 0) {
-            printf("\nДо свидания!\n");
-        }
-        
-        // ==================== Неверный выбор ====================
-        else {
-            printf("\nНеверный выбор. Попробуйте снова.\n");
-        }
-        
-    } while (choice != 0);
+    printf("\n=== String из wchar_t ===\n");
+    wchar_t wtext[] = L"Привет";
+    String* wchar_str = String_Create(wtext, 6, GetWCharFieldInfo());
+    String_PrintLine(wchar_str);
     
+    printf("\n=== Конкатенация wchar_t ===\n");
+    wchar_t wtext2[] = L" Мир";
+    String* wchar_str2 = String_Create(wtext2, 4, GetWCharFieldInfo());
+    String* concat = String_Concat(wchar_str, wchar_str2);
+    String_PrintLine(concat);
+    
+    printf("\n=== Подстрока wchar_t ===\n");
+    String* sub = String_Substring(wchar_str, 0, 5);
+    String_PrintLine(sub);
+    
+    printf("\n=== Поиск в wchar_t ===\n");
+    wchar_t wpattern[] = L"ив";
+    String* pattern = String_Create(wpattern, 2, GetWCharFieldInfo());
+    size_t count = 0;
+    int* indices = String_Find(wchar_str, pattern, true, &count);
+    if (indices != NULL) {
+        printf("Найдено: %zu совпадений\n", count);
+        free(indices);
+    }
+    
+    printf("\n=== Проверка типов ===\n");
+    printf("char и wchar_t одинаковый тип? %s\n", 
+           String_SameType(char_str, wchar_str) ? "ДА" : "НЕТ");
+    
+    String_Destroy(wchar_str);
+    String_Destroy(wchar_str2);
+    String_Destroy(concat);
+    String_Destroy(sub);
+    String_Destroy(pattern);
+    
+    printf("\n✅ ПОЛИМОРФИЗМ РАБОТАЕТ!\n");
     return 0;
 }
