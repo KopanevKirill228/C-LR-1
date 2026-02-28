@@ -1,4 +1,3 @@
-// fieldinfo.h
 #ifndef FIELD_INFO_H
 #define FIELD_INFO_H
 
@@ -10,7 +9,7 @@ typedef struct _field_info {
     void* (*copy)(void*);
     void (*destroy)(void*);
     int (*compare)(void*, void*);
-    void (*print)(FILE* out, void* elem);  // ← Печать элемента
+    void (*print)(FILE* out, void* elem);  // Печать элемента
 } FieldInfo;
 
 const FieldInfo* GetCharFieldInfo(void);

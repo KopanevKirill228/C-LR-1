@@ -1,9 +1,8 @@
-// dynamic_array.c
 #include "dynamic_array.h"
 #include <stdlib.h>
 #include <string.h>
 
-// ← Полное определение структуры (скрыто от заголовка)
+
 struct _dynamic_array {
     void* data;              // указатель на динамический массив
     size_t size;             // текущее количество элементов
@@ -11,11 +10,11 @@ struct _dynamic_array {
     const FieldInfo* type_info;
 };
 
-// ← Внутренние функции
+// Внутренние функции
 static size_t DynamicArray_CalculateNewCapacity(size_t current_capacity, size_t min_required);
 static int DynamicArray_Resize(DynamicArray* arr, size_t new_capacity);
 
-// === Вспомогательные функции ===
+// Вспомогательные функции
 
 static size_t DynamicArray_CalculateNewCapacity(size_t current_capacity, size_t min_required) {
     size_t new_capacity = current_capacity;
@@ -53,7 +52,7 @@ static int DynamicArray_Resize(DynamicArray* arr, size_t new_capacity) {
     return 0;
 }
 
-// === Публичные функции ===
+// Публичные функции
 
 DynamicArray* DynamicArray_Create(const FieldInfo* type_info, size_t initial_size) {
     if (type_info == NULL) {
@@ -110,18 +109,24 @@ int DynamicArray_Push(DynamicArray* arr, void* element) {
     }
     
     unsigned char* byte_ptr = (unsigned char*)arr->data;
-    void* dest = byte_ptr + arr->size * arr->type_info->element_size;
+    void* dest = byte_ptr + arr->size * arr->type_info->element_size; //куда добавляем элемент
     
     if (arr->type_info->copy != NULL) {
         void* copied = arr->type_info->copy(element);
         if (copied == NULL) {
             return -1;
         }
-        memcpy(dest, copied, arr->type_info->element_size);
-        if (copied != dest) {
+        
+        if (copied == element) {
+            // Просто копируем данные без malloc/free
+            memcpy(dest, element, arr->type_info->element_size);
+        } else {
+            // Сложный тип: был malloc, нужно free
+            memcpy(dest, copied, arr->type_info->element_size);
             free(copied);
         }
     } else {
+        // Нет copy — копируем напрямую
         memcpy(dest, element, arr->type_info->element_size);
     }
     
@@ -155,8 +160,11 @@ int DynamicArray_Set(DynamicArray* arr, size_t index, void* element) {
         if (copied == NULL) {
             return -1;
         }
-        memcpy(dest, copied, arr->type_info->element_size);
-        if (copied != dest) {
+        
+        if (copied == element) {
+            memcpy(dest, element, arr->type_info->element_size);
+        } else {
+            memcpy(dest, copied, arr->type_info->element_size);
             free(copied);
         }
     } else {

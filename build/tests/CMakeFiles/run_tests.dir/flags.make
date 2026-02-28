@@ -4,7 +4,7 @@
 # compile C with C:/Users/kiris/Desktop/w64devkit/bin/cc.exe
 C_DEFINES = 
 
-C_INCLUDES = @CMakeFiles/run_tests.dir/includes_C.rsp
+C_INCLUDES = 
 
-C_FLAGS = -g -std=gnu99 -Wall -Wextra -Wpedantic
+C_FLAGS = -g -std=gnu99 -Wall -Wextra -Wpedantic -g
 

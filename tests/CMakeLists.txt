@@ -1,26 +1,25 @@
-set(TEST_SOURCES
+# tests/CMakeLists.txt
+
+# Исполняемый файл для тестов
+add_executable(run_tests
     test_runner.c
     test_core.c
     test_string.c
+    ../src/my_string.c
+    ../src/dynamic_array.c
+    ../src/char_type.c
+    ../src/int_type.c
+    ../src/fieldinfo.h
 )
 
-# Исходные файлы библиотеки (чтобы тесты видели реализацию)
-set(LIB_SOURCES
-    ${CMAKE_SOURCE_DIR}/src/my_string.c
-    ${CMAKE_SOURCE_DIR}/src/Dynamic_Array.c
-    ${CMAKE_SOURCE_DIR}/src/char_type.c
-)
+# Линковка
+target_link_libraries(run_tests)
 
-add_executable(run_tests ${TEST_SOURCES} ${LIB_SOURCES})
+# Включение в CTest
+enable_testing()
+add_test(NAME run_tests COMMAND run_tests)
 
-target_include_directories(run_tests PRIVATE 
-    ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_SOURCE_DIR}/tests
-)
-
-# Регистрация для CTest
-add_test(NAME AllTests COMMAND run_tests)
-set_tests_properties(AllTests PROPERTIES 
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    PASS_REGULAR_EXPRESSION "ALL TESTS PASSED"
-)
+# Флаги компиляции (опционально)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(run_tests PRIVATE -g -Wall -Wextra)
+endif()

@@ -1,76 +1,318 @@
-// main.c - английская версия
 #include <stdio.h>
-#include <locale.h>
 #include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+#include <windows.h>
 #include "my_string.h"
 #include "fieldinfo.h"
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+// Прототипы
+void clear_input(void);
 
 int main(void) {
-    setlocale(LC_ALL, "");
-    
-    #ifdef _WIN32
+    // Настройка
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-    #endif
+
     
-    printf("=== POLYMORPHIC STRING (Variant 7) ===\n\n");
+    int choice;
+    String* current = NULL;
     
-    // 1. char string
-    printf("1. char string: ");
-    char text[] = "Hello";
-    String* char_str = String_Create(text, 5, GetCharFieldInfo());
-    String_PrintLine(char_str);
-    
-    // 2. int string
-    printf("\n2. int string: ");
-    int numbers[] = {1, 2, 3, 4, 5};
-    String* int_str = String_Create(numbers, 5, GetIntFieldInfo());
-    String_PrintLine(int_str);
-    
-    // 3. Concatenation
-    printf("\n3. int concatenation: ");
-    int more_numbers[] = {6, 7, 8, 9, 10};
-    String* int_str2 = String_Create(more_numbers, 5, GetIntFieldInfo());
-    String* int_concat = String_Concat(int_str, int_str2);
-    String_PrintLine(int_concat);
-    
-    // 4. Substring
-    printf("\n4. int substring [2-5): ");
-    String* int_sub = String_Substring(int_str, 2, 5);
-    String_PrintLine(int_sub);
-    
-    // 5. Search
-    printf("\n5. Search [3,4] in int string: ");
-    int pattern_data[] = {3, 4};
-    String* pattern = String_Create(pattern_data, 2, GetIntFieldInfo());
-    size_t count;
-    int* indices = String_Find(int_str, pattern, true, &count);
-    if (indices != NULL) {
-        printf("found %zu matches at positions: ", count);
-        for (size_t i = 0; i < count; i++) {
-            printf("%d ", indices[i]);
+    do {
+        printf("\n====================================\n");
+        printf("  ЛАБОРАТОРНАЯ РАБОТА №1 ВАРИАНТ 7\n");
+        printf("====================================\n");
+        printf("1. Создать строку (char)\n");
+        printf("2. Создать строку (int)\n");
+        printf("3. Конкатенация\n");
+        printf("4. Подстрока\n");
+        printf("5. Поиск подстроки\n");
+        printf("6. Показать текущую строку\n");
+        printf("7. Запустить тесты\n");
+        printf("0. Выход\n");
+        printf("====================================\n");
+        printf("Выбор: ");
+        
+        scanf("%d", &choice);
+        clear_input();
+        
+        switch(choice) {
+            case 1: { // Создать char строку
+                printf("\n--- СОЗДАНИЕ char СТРОКИ ---\n");
+                char buffer[256];
+                printf("Введите строку: ");
+                fgets(buffer, sizeof(buffer), stdin);
+                
+                size_t len = strlen(buffer);
+                if (len > 0 && buffer[len-1] == '\n') {
+                    buffer[len-1] = '\0';
+                    len--;
+                }
+                
+                if (current) String_Destroy(current);
+                current = String_Create(buffer, len, GetCharFieldInfo());
+                printf("Строка создана: %s\n", buffer);
+                break;
+            }
+            
+            case 2: { // Создать int строку
+                printf("\n--- СОЗДАНИЕ int СТРОКИ ---\n");
+                int count;
+                printf("Сколько чисел? ");
+                scanf("%d", &count);
+                
+                int* numbers = (int*)malloc(count * sizeof(int));
+                printf("Введите %d чисел: ", count);
+                for (int i = 0; i < count; i++) {
+                    scanf("%d", &numbers[i]);
+                }
+                clear_input();
+                
+                if (current) String_Destroy(current);
+                current = String_Create(numbers, count, GetIntFieldInfo());
+                
+                printf("Строка создана: ");
+                for (int i = 0; i < count; i++) {
+                    printf("%d ", numbers[i]);
+                }
+                printf("\n");
+                free(numbers);
+                break;
+            }
+            
+            case 3: { // Конкатенация
+                printf("\n--- КОНКАТЕНАЦИЯ ---\n");
+                if (!current) {
+                    printf("Сначала создайте строку\n");
+                    break;
+                }
+                
+                const FieldInfo* type = String_GetType(current);
+                printf("Текущая строка: ");
+                if (type == GetCharFieldInfo()) {
+                    for (size_t i = 0; i < String_Length(current); i++) {
+                        const char* c = (const char*)String_GetElement(current, i);
+                        printf("%c", *c);
+                    }
+                } else {
+                    for (size_t i = 0; i < String_Length(current); i++) {
+                        const int* n = (const int*)String_GetElement(current, i);
+                        printf("%d ", *n);
+                    }
+                }
+                printf("\n");
+                
+                if (type == GetCharFieldInfo()) {
+                    char buffer[256];
+                    printf("Введите строку для добавления: ");
+                    fgets(buffer, sizeof(buffer), stdin);
+                    
+                    size_t len = strlen(buffer);
+                    if (len > 0 && buffer[len-1] == '\n') {
+                        buffer[len-1] = '\0';
+                        len--;
+                    }
+                    
+                    String* second = String_Create(buffer, len, type);
+                    String* result = String_Concat(current, second);
+                    
+                    if (result) {
+                        String_Destroy(current);
+                        current = result;
+                        printf("Результат: %s\n", buffer);
+                    }
+                    String_Destroy(second);
+                    
+                } else {
+                    int count;
+                    printf("Сколько чисел добавить? ");
+                    scanf("%d", &count);
+                    
+                    int* numbers = (int*)malloc(count * sizeof(int));
+                    printf("Введите %d чисел: ", count);
+                    for (int i = 0; i < count; i++) {
+                        scanf("%d", &numbers[i]);
+                    }
+                    clear_input();
+                    
+                    String* second = String_Create(numbers, count, type);
+                    String* result = String_Concat(current, second);
+                    
+                    if (result) {
+                        String_Destroy(current);
+                        current = result;
+                        printf("Результат добавлен\n");
+                    }
+                    
+                    String_Destroy(second);
+                    free(numbers);
+                }
+                break;
+            }
+            
+            case 4: { // Подстрока
+                printf("\n--- ПОДСТРОКА ---\n");
+                if (!current) {
+                    printf("Сначала создайте строку\n");
+                    break;
+                }
+                
+                size_t len = String_Length(current);
+                printf("Длина строки: %zu\n", len);
+                
+                int start, end;
+                printf("Введите start и end: ");
+                scanf("%d %d", &start, &end);
+                clear_input();
+                
+                String* sub = String_Substring(current, start, end);
+                
+                if (sub) {
+                    printf("Подстрока: ");
+                    const FieldInfo* type = String_GetType(sub);
+                    if (type == GetCharFieldInfo()) {
+                        for (size_t i = 0; i < String_Length(sub); i++) {
+                            const char* c = (const char*)String_GetElement(sub, i);
+                            printf("%c", *c);
+                        }
+                    } else {
+                        for (size_t i = 0; i < String_Length(sub); i++) {
+                            const int* n = (const int*)String_GetElement(sub, i);
+                            printf("%d ", *n);
+                        }
+                    }
+                    printf("\n");
+                    String_Destroy(sub);
+                } else {
+                    printf("Ошибка: неверный диапазон\n");
+                }
+                break;
+            }
+            
+            case 5: { // Поиск
+                printf("\n--- ПОИСК ПОДСТРОКИ ---\n");
+                if (!current) {
+                    printf("Сначала создайте строку\n");
+                    break;
+                }
+                
+                const FieldInfo* type = String_GetType(current);
+                
+                if (type == GetCharFieldInfo()) {
+                    char buffer[256];
+                    printf("Введите что искать: ");
+                    fgets(buffer, sizeof(buffer), stdin);
+                    
+                    size_t len = strlen(buffer);
+                    if (len > 0 && buffer[len-1] == '\n') {
+                        buffer[len-1] = '\0';
+                        len--;
+                    }
+                    
+                    String* pattern = String_Create(buffer, len, type);
+                    
+                    int case_sensitive;
+                    printf("Учитывать регистр? (1-да, 0-нет): ");
+                    scanf("%d", &case_sensitive);
+                    clear_input();
+                    
+                    size_t count;
+                    int* indices = String_Find(current, pattern, case_sensitive, &count);
+                    
+                    if (indices) {
+                        printf("Найдено %zu совпадений: ", count);
+                        for (size_t i = 0; i < count; i++) {
+                            printf("%d ", indices[i]);
+                        }
+                        printf("\n");
+                        free(indices);
+                    } else {
+                        printf("Совпадений не найдено\n");
+                    }
+                    
+                    String_Destroy(pattern);
+                    
+                } else {
+                    int count;
+                    printf("Сколько чисел искать? ");
+                    scanf("%d", &count);
+                    
+                    int* numbers = (int*)malloc(count * sizeof(int));
+                    printf("Введите %d чисел: ", count);
+                    for (int i = 0; i < count; i++) {
+                        scanf("%d", &numbers[i]);
+                    }
+                    clear_input();
+                    
+                    String* pattern = String_Create(numbers, count, type);
+                    
+                    size_t result_count;
+                    int* indices = String_Find(current, pattern, 1, &result_count);
+                    
+                    if (indices) {
+                        printf("Найдено %zu совпадений: ", result_count);
+                        for (size_t i = 0; i < result_count; i++) {
+                            printf("%d ", indices[i]);
+                        }
+                        printf("\n");
+                        free(indices);
+                    } else {
+                        printf("Совпадений не найдено\n");
+                    }
+                    
+                    String_Destroy(pattern);
+                    free(numbers);
+                }
+                break;
+            }
+            
+            case 6: // Показать текущую строку
+                printf("\n--- ТЕКУЩАЯ СТРОКА ---\n");
+                if (!current) {
+                    printf("Строка не создана\n");
+                } else {
+                    const FieldInfo* type = String_GetType(current);
+                    printf("Тип: %s\n", type == GetCharFieldInfo() ? "char" : "int");
+                    printf("Длина: %zu\n", String_Length(current));
+                    printf("Содержимое: ");
+                    if (type == GetCharFieldInfo()) {
+                        for (size_t i = 0; i < String_Length(current); i++) {
+                            const char* c = (const char*)String_GetElement(current, i);
+                            printf("%c", *c);
+                        }
+                    } else {
+                        for (size_t i = 0; i < String_Length(current); i++) {
+                            const int* n = (const int*)String_GetElement(current, i);
+                            printf("%d ", *n);
+                        }
+                    }
+                    printf("\n");
+                }
+                break;
+            
+            case 7: // Запустить тесты
+                printf("\n--- ЗАПУСК ТЕСТОВ ---\n");
+                extern void run_core_tests(void);
+                extern void run_string_tests(void);
+                //run_core_tests();
+                //run_string_tests();
+                break;
+            
+            case 0:
+                printf("До свидания!\n");
+                break;
+                
+            default:
+                printf("Неверный выбор\n");
         }
-        printf("\n");
-        free(indices);
-    }
+        
+    } while (choice != 0);
     
-    // 6. Type check
-    printf("\n6. Type check:\n");
-    printf("  char and int are %s\n", 
-           String_SameType(char_str, int_str) ? "SAME" : "DIFFERENT");
-    
-    // Cleanup
-    String_Destroy(char_str);
-    String_Destroy(int_str);
-    String_Destroy(int_str2);
-    String_Destroy(int_concat);
-    String_Destroy(int_sub);
-    String_Destroy(pattern);
-    
-    printf("\n✅ POLYMORPHISM DEMONSTRATED SUCCESSFULLY!\n");
+    if (current) String_Destroy(current);
     return 0;
+}
+
+void clear_input(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
 }

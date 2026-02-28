@@ -151,29 +151,29 @@ run_tests/fast:
 	$(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/build
 .PHONY : run_tests/fast
 
-src/Vector.obj: src/Vector.c.obj
-.PHONY : src/Vector.obj
+src/Dynamic_Array.obj: src/Dynamic_Array.c.obj
+.PHONY : src/Dynamic_Array.obj
 
 # target to build an object file
-src/Vector.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/Vector.c.obj
-.PHONY : src/Vector.c.obj
+src/Dynamic_Array.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/Dynamic_Array.c.obj
+.PHONY : src/Dynamic_Array.c.obj
 
-src/Vector.i: src/Vector.c.i
-.PHONY : src/Vector.i
+src/Dynamic_Array.i: src/Dynamic_Array.c.i
+.PHONY : src/Dynamic_Array.i
 
 # target to preprocess a source file
-src/Vector.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/Vector.c.i
-.PHONY : src/Vector.c.i
+src/Dynamic_Array.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/Dynamic_Array.c.i
+.PHONY : src/Dynamic_Array.c.i
 
-src/Vector.s: src/Vector.c.s
-.PHONY : src/Vector.s
+src/Dynamic_Array.s: src/Dynamic_Array.c.s
+.PHONY : src/Dynamic_Array.s
 
 # target to generate assembly for a file
-src/Vector.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/Vector.c.s
-.PHONY : src/Vector.c.s
+src/Dynamic_Array.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/Dynamic_Array.c.s
+.PHONY : src/Dynamic_Array.c.s
 
 src/char_type.obj: src/char_type.c.obj
 .PHONY : src/char_type.obj
@@ -282,9 +282,9 @@ help:
 	@echo ... test
 	@echo ... demo
 	@echo ... run_tests
-	@echo ... src/Vector.obj
-	@echo ... src/Vector.i
-	@echo ... src/Vector.s
+	@echo ... src/Dynamic_Array.obj
+	@echo ... src/Dynamic_Array.i
+	@echo ... src/Dynamic_Array.s
 	@echo ... src/char_type.obj
 	@echo ... src/char_type.i
 	@echo ... src/char_type.s

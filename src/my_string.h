@@ -1,4 +1,3 @@
-// my_string.h
 #ifndef MY_STRING_H
 #define MY_STRING_H
 
@@ -10,7 +9,7 @@
 
 typedef struct _string String;
 
-// КОНСТРУКТОРЫ (ПОЛИМОРФНЫЕ — любой тип!)
+// КОНСТРУКТОРЫ
 String* String_Create(const void* data, size_t element_count, const FieldInfo* type_info);
 String* String_CreateEmpty(size_t capacity, const FieldInfo* type_info);
 void String_Destroy(String* s);
@@ -23,7 +22,7 @@ int* String_Find(const String* s, const String* pattern, bool match_case, size_t
 // УТИЛИТЫ
 size_t String_Length(const String* s);
 const void* String_GetElement(const String* s, size_t index);
-void String_Print(FILE* out, const String* s);  // ← Вывод как СТРОКА!
+void String_Print(FILE* out, const String* s);
 void String_PrintLine(const String* s);
 
 // ПРОВЕРКА ТИПА

@@ -11,10 +11,11 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/_mingw_off_t.h \
  C:/Users/kiris/Desktop/w64devkit/include/swprintf.inl \
  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdio_s.h \
+ C:/Users/kiris/Desktop/w64devkit/include/locale.h \
+ C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
  C:/Users/kiris/Desktop/w64devkit/include/windows.h \
  C:/Users/kiris/Desktop/w64devkit/include/sdkddkver.h \
  C:/Users/kiris/Desktop/w64devkit/include/excpt.h \
- C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
  C:/Users/kiris/Desktop/w64devkit/include/stdarg.h \
  C:/Users/kiris/Desktop/w64devkit/include/_mingw_stdarg.h \
@@ -294,5 +295,4 @@ tests/CMakeFiles/run_tests.dir/test_runner.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/winsvc.h \
  C:/Users/kiris/Desktop/w64devkit/include/mcx.h \
  C:/Users/kiris/Desktop/w64devkit/include/imm.h \
- C:\Users\kiris\C-LR-1\tests\test_macros.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h
+ C:\Users\kiris\C-LR-1\tests\test_macros.h

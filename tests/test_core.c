@@ -1,127 +1,171 @@
-#include "test_macros.h"
-#include "Vector.h"
-#include "fieldinfo.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include "test_macros.h"
+#include "../src/dynamic_array.h"
+#include "../src/fieldinfo.h"
 
 
-//Тесты: FieldInfo (char_type.c)
+// ═══════════════════════════════════════
+// ТЕСТЫ: FieldInfo (мета-данные типа)
+// ═══════════════════════════════════════
 
-void test_fieldinfo_basics(void) {
-    TEST_GROUP("FieldInfo: Singleton и функции");
+void test_fieldinfo_char(void) {
+    TEST_GROUP("FieldInfo<char>: Singleton и функции");
     
-    // Ленивая инициализация
     const FieldInfo* info1 = GetCharFieldInfo();
     const FieldInfo* info2 = GetCharFieldInfo();
+    
     TEST_RUN("GetCharFieldInfo возвращает не-NULL", info1 != NULL);
     TEST_RUN("Singleton: один экземпляр", info1 == info2);
-    
-    // Проверка полей
     TEST_RUN("element_size == sizeof(char)", info1->element_size == sizeof(char));
     TEST_RUN("copy функция определена", info1->copy != NULL);
     TEST_RUN("destroy функция определена", info1->destroy != NULL);
     TEST_RUN("compare функция определена", info1->compare != NULL);
-    
-    // Тест char_compare
-    char a = 'A', b = 'B', c = 'A';
-    TEST_RUN("compare('A','B') < 0", info1->compare(&a, &b) < 0);
-    TEST_RUN("compare('B','A') > 0", info1->compare(&b, &a) > 0);
-    TEST_RUN("compare('A','A') == 0", info1->compare(&a, &c) == 0);
-    
-    // Граничный случай: NULL в compare
-    TEST_RUN("compare(NULL, NULL) == 0", info1->compare(NULL, NULL) == 0);
-    TEST_RUN("compare(NULL, &a) < 0", info1->compare(NULL, &a) < 0);
+    TEST_RUN("print функция определена", info1->print != NULL);
     
     TEST_GROUP_END();
 }
 
+void test_fieldinfo_int(void) {
+    TEST_GROUP("FieldInfo<int>: Singleton и функции");
+    
+    const FieldInfo* info = GetIntFieldInfo();
+    
+    TEST_RUN("GetIntFieldInfo возвращает не-NULL", info != NULL);
+    TEST_RUN("element_size == sizeof(int)", info->element_size == sizeof(int));
+    TEST_RUN("copy функция определена", info->copy != NULL);
+    TEST_RUN("destroy функция определена", info->destroy != NULL);
+    
+    // Тест compare для int
+    int a = 10, b = 20, c = 10;
+    TEST_RUN("compare(10, 20) < 0", info->compare(&a, &b) < 0);
+    TEST_RUN("compare(20, 10) > 0", info->compare(&b, &a) > 0);
+    TEST_RUN("compare(10, 10) == 0", info->compare(&a, &c) == 0);
+    
+    TEST_GROUP_END();
+}
 
-//Тесты: Vector (базовые операции)
+// ═══════════════════════════════════════
+// ТЕСТЫ: DynamicArray (полиморфный контейнер)
+// ═══════════════════════════════════════
 
-void test_vector_basics(void) {
-    TEST_GROUP("Vector: Create, Push, Get, Size");
+void test_dynamic_array_char(void) {
+    TEST_GROUP("DynamicArray<char>: базовые операции");
     
-    const FieldInfo* info = GetCharFieldInfo();
+    DynamicArray* arr = DynamicArray_Create(GetCharFieldInfo(), 4);
+    ASSERT_NOT_NULL(arr, "DynamicArray_Create не-NULL");
     
-    // Создание
-    Vector* vec = Vector_Create(info, 4);
-    TEST_RUN("Vector_Create != NULL", vec != NULL);
-    TEST_RUN("Начальный size == 0", Vector_Size(vec) == 0);
+    // Push
+    char chars[] = {'H', 'e', 'l', 'l', 'o'};
+    for (int i = 0; i < 5; i++) {
+        int result = DynamicArray_Push(arr, &chars[i]);
+        char msg[50];
+        snprintf(msg, sizeof(msg), "Push('%c') == 0", chars[i]);
+        TEST_RUN(msg, result == 0);
+    }
     
-    // Push элементов
-    char x = 'X', y = 'Y', z = 'Z';
-    TEST_RUN("Push('X') == 0", Vector_Push(vec, &x) == 0);
-    TEST_RUN("Push('Y') == 0", Vector_Push(vec, &y) == 0);
-    TEST_RUN("Push('Z') == 0", Vector_Push(vec, &z) == 0);
-    TEST_RUN("Size после 3 Push == 3", Vector_Size(vec) == 3);
+    // Size
+    TEST_RUN("Size == 5 после 5 Push", DynamicArray_Size(arr) == 5);
     
-    // Get элементов
-    const char* g0 = (const char*)Vector_Get(vec, 0);
-    const char* g1 = (const char*)Vector_Get(vec, 1);
-    const char* g2 = (const char*)Vector_Get(vec, 2);
-    TEST_RUN("Get(0) == 'X'", g0 != NULL && *g0 == 'X');
-    TEST_RUN("Get(1) == 'Y'", g1 != NULL && *g1 == 'Y');
-    TEST_RUN("Get(2) == 'Z'", g2 != NULL && *g2 == 'Z');
+    // Get
+    for (int i = 0; i < 5; i++) {
+        const char* c = (const char*)DynamicArray_Get(arr, i);
+        char msg[50];
+        snprintf(msg, sizeof(msg), "Get(%d) == '%c'", i, chars[i]);
+        TEST_RUN(msg, c != NULL && *c == chars[i]);
+    }
     
-    // Граничные случаи Get
-    TEST_RUN("Get(invalid index) == NULL", Vector_Get(vec, 10) == NULL);
-    TEST_RUN("Get(NULL vec) == NULL", Vector_Get(NULL, 0) == NULL);
+    // Out of bounds
+    TEST_RUN("Get(10) == NULL (out of bounds)", DynamicArray_Get(arr, 10) == NULL);
     
-    // Set элемента
-    char new_val = 'W';
-    TEST_RUN("Set(1, 'W') == 0", Vector_Set(vec, 1, &new_val) == 0);
-    const char* g1_after = (const char*)Vector_Get(vec, 1);
-    TEST_RUN("Get(1) после Set == 'W'", g1_after != NULL && *g1_after == 'W');
-    
-    // Граничные случаи Set
-    TEST_RUN("Set(invalid index) == -1", Vector_Set(vec, 10, &new_val) == -1);
-    TEST_RUN("Set(NULL vec) == -1", Vector_Set(NULL, 0, &new_val) == -1);
+    // Set
+    char new_char = 'X';
+    TEST_RUN("Set(2, 'X') == 0", DynamicArray_Set(arr, 2, &new_char) == 0);
+    const char* updated = (const char*)DynamicArray_Get(arr, 2);
+    TEST_RUN("Get(2) после Set == 'X'", updated != NULL && *updated == 'X');
     
     // CheckType
-    TEST_RUN("CheckType с правильным типом == 1", Vector_CheckType(vec, info) == 1);
-    TEST_RUN("CheckType с NULL == 0", Vector_CheckType(vec, NULL) == 0);
+    TEST_RUN("CheckType(char) == 1", DynamicArray_CheckType(arr, GetCharFieldInfo()) == 1);
+    TEST_RUN("CheckType(int) == 0", DynamicArray_CheckType(arr, GetIntFieldInfo()) == 0);
     
-    // Destroy (без краша)
-    Vector_Destroy(vec);
-    TEST_RUN("Vector_Destroy безопасен", true);
-    Vector_Destroy(NULL);  // Двойной destroy
-    TEST_RUN("Vector_Destroy(NULL) безопасен", true);
+    // Destroy
+    DynamicArray_Destroy(arr);  // Не должно крашиться
+    TEST_RUN("Destroy(NULL) безопасен", 1);  // Всегда PASS
+    DynamicArray_Destroy(NULL);
     
     TEST_GROUP_END();
 }
 
-
-//Тесты: Vector (расширенные: resize, empty, NULL)
-
-void test_vector_advanced(void) {
-    TEST_GROUP("Vector: Resize, Empty, NULL handling");
+void test_dynamic_array_int(void) {
+    TEST_GROUP("DynamicArray<int>: полиморфизм");
     
-    const FieldInfo* info = GetCharFieldInfo();
+    DynamicArray* arr = DynamicArray_Create(GetIntFieldInfo(), 4);
+    ASSERT_NOT_NULL(arr, "DynamicArray_Create<int> не-NULL");
     
-    // Пустой вектор
-    Vector* empty = Vector_Create(info, 0);
-    TEST_RUN("Create с capacity=0 работает", empty != NULL);
-    TEST_RUN("Empty vector size == 0", Vector_Size(empty) == 0);
-    Vector_Destroy(empty);
-    
-    // Автоматический resize
-    Vector* vec = Vector_Create(info, 2);
-    for (int i = 0; i < 10; i++) {
-        char c = 'A' + i;
-        Vector_Push(vec, &c);
+    // Push int
+    int nums[] = {10, 20, 30, 40, 50};
+    for (int i = 0; i < 5; i++) {
+        TEST_RUN("Push(int) == 0", DynamicArray_Push(arr, &nums[i]) == 0);
     }
-    TEST_RUN("Push 10 элементов в vec(2) работает", Vector_Size(vec) == 10);
+    
+    // Get int
+    for (int i = 0; i < 5; i++) {
+        const int* val = (const int*)DynamicArray_Get(arr, i);
+        char msg[50];
+        snprintf(msg, sizeof(msg), "Get(%d) == %d", i, nums[i]);
+        TEST_RUN(msg, val != NULL && *val == nums[i]);
+    }
+    
+    // Resize test (автоматическое увеличение capacity)
+    for (int i = 0; i < 10; i++) {
+        int x = 100 + i;
+        DynamicArray_Push(arr, &x);
+    }
+    TEST_RUN("Size == 15 после 10 дополнительных Push", DynamicArray_Size(arr) == 15);
     
     // Проверка данных после resize
-    const char* first = (const char*)Vector_Get(vec, 0);
-    const char* last = (const char*)Vector_Get(vec, 9);
-    TEST_RUN("First element после resize == 'A'", first && *first == 'A');
-    TEST_RUN("Last element после resize == 'J'", last && *last == 'J');
+    TEST_RUN("Первый элемент не изменился после resize", 
+             *(const int*)DynamicArray_Get(arr, 0) == 10);
     
-    Vector_Destroy(vec);
+    DynamicArray_Destroy(arr);
+    TEST_GROUP_END();
+}
+
+void test_dynamic_array_edge_cases(void) {
+    TEST_GROUP("DynamicArray: граничные случаи");
     
     // NULL параметры
-    TEST_RUN("Create(NULL type) == NULL", Vector_Create(NULL, 4) == NULL);
-    TEST_RUN("Push(NULL vec) == -1", Vector_Push(NULL, NULL) == -1);
+    TEST_RUN("Create(NULL) == NULL", DynamicArray_Create(NULL, 10) == NULL);
+    TEST_RUN("Push(NULL, ...) == -1", DynamicArray_Push(NULL, NULL) == -1);
+    
+    // Пустой массив
+    DynamicArray* empty = DynamicArray_Create(GetCharFieldInfo(), 0);
+    TEST_RUN("Size пустого массива == 0", DynamicArray_Size(empty) == 0);
+    TEST_RUN("Get(0) пустого массива == NULL", DynamicArray_Get(empty, 0) == NULL);
+    DynamicArray_Destroy(empty);
+    
+    // Set out of bounds
+    DynamicArray* arr = DynamicArray_Create(GetIntFieldInfo(), 4);
+    int val = 42;
+    TEST_RUN("Set(10, ...) == -1 (out of bounds)", DynamicArray_Set(arr, 10, &val) == -1);
+    DynamicArray_Destroy(arr);
     
     TEST_GROUP_END();
+}
+
+// ═══════════════════════════════════════
+// Главный запуск тестов core
+// ═══════════════════════════════════════
+
+void run_core_tests(void) {
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║   CORE TESTS — DynamicArray + FieldInfo║\n");
+    printf("╚════════════════════════════════════════╝\n");
+    
+    test_fieldinfo_char();
+    test_fieldinfo_int();
+    test_dynamic_array_char();
+    test_dynamic_array_int();
+    test_dynamic_array_edge_cases();
 }

@@ -101,20 +101,20 @@ CMakeFiles/demo.dir/src/my_string.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/demo.dir/src/my_string.c.s"
 	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\my_string.c -o CMakeFiles\demo.dir\src\my_string.c.s
 
-CMakeFiles/demo.dir/src/Vector.c.obj: CMakeFiles/demo.dir/flags.make
-CMakeFiles/demo.dir/src/Vector.c.obj: CMakeFiles/demo.dir/includes_C.rsp
-CMakeFiles/demo.dir/src/Vector.c.obj: C:/Users/kiris/C-LR-1/src/Vector.c
-CMakeFiles/demo.dir/src/Vector.c.obj: CMakeFiles/demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/demo.dir/src/Vector.c.obj"
-	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/demo.dir/src/Vector.c.obj -MF CMakeFiles\demo.dir\src\Vector.c.obj.d -o CMakeFiles\demo.dir\src\Vector.c.obj -c C:\Users\kiris\C-LR-1\src\Vector.c
+CMakeFiles/demo.dir/src/Dynamic_Array.c.obj: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/Dynamic_Array.c.obj: CMakeFiles/demo.dir/includes_C.rsp
+CMakeFiles/demo.dir/src/Dynamic_Array.c.obj: C:/Users/kiris/C-LR-1/src/Dynamic_Array.c
+CMakeFiles/demo.dir/src/Dynamic_Array.c.obj: CMakeFiles/demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/demo.dir/src/Dynamic_Array.c.obj"
+	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/demo.dir/src/Dynamic_Array.c.obj -MF CMakeFiles\demo.dir\src\Dynamic_Array.c.obj.d -o CMakeFiles\demo.dir\src\Dynamic_Array.c.obj -c C:\Users\kiris\C-LR-1\src\Dynamic_Array.c
 
-CMakeFiles/demo.dir/src/Vector.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/demo.dir/src/Vector.c.i"
-	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\src\Vector.c > CMakeFiles\demo.dir\src\Vector.c.i
+CMakeFiles/demo.dir/src/Dynamic_Array.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/demo.dir/src/Dynamic_Array.c.i"
+	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\src\Dynamic_Array.c > CMakeFiles\demo.dir\src\Dynamic_Array.c.i
 
-CMakeFiles/demo.dir/src/Vector.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/demo.dir/src/Vector.c.s"
-	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\Vector.c -o CMakeFiles\demo.dir\src\Vector.c.s
+CMakeFiles/demo.dir/src/Dynamic_Array.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/demo.dir/src/Dynamic_Array.c.s"
+	C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\Dynamic_Array.c -o CMakeFiles\demo.dir\src\Dynamic_Array.c.s
 
 CMakeFiles/demo.dir/src/char_type.c.obj: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/char_type.c.obj: CMakeFiles/demo.dir/includes_C.rsp
@@ -150,7 +150,7 @@ CMakeFiles/demo.dir/src/int_type.c.s: cmake_force
 demo_OBJECTS = \
 "CMakeFiles/demo.dir/src/main.c.obj" \
 "CMakeFiles/demo.dir/src/my_string.c.obj" \
-"CMakeFiles/demo.dir/src/Vector.c.obj" \
+"CMakeFiles/demo.dir/src/Dynamic_Array.c.obj" \
 "CMakeFiles/demo.dir/src/char_type.c.obj" \
 "CMakeFiles/demo.dir/src/int_type.c.obj"
 
@@ -159,7 +159,7 @@ demo_EXTERNAL_OBJECTS =
 
 demo.exe: CMakeFiles/demo.dir/src/main.c.obj
 demo.exe: CMakeFiles/demo.dir/src/my_string.c.obj
-demo.exe: CMakeFiles/demo.dir/src/Vector.c.obj
+demo.exe: CMakeFiles/demo.dir/src/Dynamic_Array.c.obj
 demo.exe: CMakeFiles/demo.dir/src/char_type.c.obj
 demo.exe: CMakeFiles/demo.dir/src/int_type.c.obj
 demo.exe: CMakeFiles/demo.dir/build.make

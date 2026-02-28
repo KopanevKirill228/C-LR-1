@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/kiris/C-LR-1/src/Vector.c" "CMakeFiles/demo.dir/src/Vector.c.obj" "gcc" "CMakeFiles/demo.dir/src/Vector.c.obj.d"
+  "C:/Users/kiris/C-LR-1/src/Dynamic_Array.c" "CMakeFiles/demo.dir/src/Dynamic_Array.c.obj" "gcc" "CMakeFiles/demo.dir/src/Dynamic_Array.c.obj.d"
   "C:/Users/kiris/C-LR-1/src/char_type.c" "CMakeFiles/demo.dir/src/char_type.c.obj" "gcc" "CMakeFiles/demo.dir/src/char_type.c.obj.d"
   "C:/Users/kiris/C-LR-1/src/int_type.c" "CMakeFiles/demo.dir/src/int_type.c.obj" "gcc" "CMakeFiles/demo.dir/src/int_type.c.obj.d"
   "C:/Users/kiris/C-LR-1/src/main.c" "CMakeFiles/demo.dir/src/main.c.obj" "gcc" "CMakeFiles/demo.dir/src/main.c.obj.d"

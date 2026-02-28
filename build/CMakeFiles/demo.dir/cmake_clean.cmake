@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/demo.dir/src/Vector.c.obj"
-  "CMakeFiles/demo.dir/src/Vector.c.obj.d"
+  "CMakeFiles/demo.dir/src/Dynamic_Array.c.obj"
+  "CMakeFiles/demo.dir/src/Dynamic_Array.c.obj.d"
   "CMakeFiles/demo.dir/src/char_type.c.obj"
   "CMakeFiles/demo.dir/src/char_type.c.obj.d"
   "CMakeFiles/demo.dir/src/int_type.c.obj"

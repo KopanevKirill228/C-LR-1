@@ -1,288 +1,321 @@
 #include "test_macros.h"
-#include "my_string.h"
-#include "fieldinfo.h"
-#include <string.h>
+#include "../src/my_string.h"
+#include "../src/dynamic_array.h"
+#include "../src/fieldinfo.h"
 
-// Вспомогательная функция для красивого вывода строки
-static const char* str_or_null(const String* s) {
-    if (s == NULL) return "NULL";
-    const char* cstr = String_ToCString(s);
-    return cstr ? cstr : "(empty)";
+// Вспомогательная функция: создаёт DynamicArray с данными
+static DynamicArray* create_da_from_chars(const char* str) {
+    DynamicArray* da = DynamicArray_Create(GetCharFieldInfo(), strlen(str));
+    for(size_t i = 0; str[i] != '\0'; i++) {
+        char c = str[i];
+        DynamicArray_Push(da, &c);
+    }
+    return da;
 }
 
-// Тесты: String_Create, String_Destroy
-void test_string_create_destroy(void) {
-    TEST_GROUP("String: Create / Destroy");
+// Вспомогательная функция: создаёт String из DynamicArray
+static String* create_string_from_da(DynamicArray* da) {
+    size_t size = DynamicArray_Size(da);
+    if(size == 0) return String_CreateEmpty(4, GetCharFieldInfo());
     
-    // Нормальное создание
-    String* s1 = String_Create("Hello");
-    TEST_SHOW("Create(\"Hello\")", 
-              s1 != NULL && String_Length(s1) == 5,
-              "\"Hello\"", 
-              "String != NULL, length=5",
-              str_or_null(s1));
-    String_Destroy(s1);
+    // Копируем данные из DynamicArray в буфер
+    unsigned char* buffer = malloc(size * sizeof(char));
+    for(size_t i = 0; i < size; i++) {
+        const char* c = (const char*)DynamicArray_Get(da, i);
+        buffer[i] = *c;
+    }
     
-    // Пустая строка
-    String* empty = String_Create("");
-    TEST_SHOW("Create(\"\")", 
-              empty != NULL && String_Length(empty) == 0,
-              "\"\"", 
-              "Empty string, length=0",
-              str_or_null(empty));
-    String_Destroy(empty);
-    
-    // NULL вход
-    String* null_str = String_Create(NULL);
-    TEST_SHOW("Create(NULL)", 
-              null_str != NULL && String_Length(null_str) == 0,
-              "NULL", 
-              "Empty string (safe)",
-              str_or_null(null_str));
-    String_Destroy(null_str);
-    
-    // Destroy безопасность
-    String* s2 = String_Create("Test");
-    String_Destroy(s2);
-    TEST_RUN("Destroy не крашит", true);
-    String_Destroy(s2);  // Двойной
-    TEST_RUN("Double Destroy безопасен", true);
-    String_Destroy(NULL);
-    TEST_RUN("Destroy(NULL) безопасен", true);
-    
-    TEST_GROUP_END();
+    String* s = String_Create(buffer, size, GetCharFieldInfo());
+    free(buffer);
+    return s;
 }
 
-
-// Тесты: String_Concat
-
-void test_string_concat(void) {
-    TEST_GROUP("String: Concatenation");
+void test_string_create_edge_cases(void) {
+    printf("\n=== String Create Edge Cases ===\n");
     
-    String* s1 = String_Create("Hello, ");
-    String* s2 = String_Create("World!");
+    // Граничный случай 1: NULL type_info
+    String* s = String_Create(NULL, 0, NULL);
+    TEST(s == NULL, "Create with NULL type_info returns NULL");
     
-    // Нормальная конкатенация
-    String* result = String_Concat(s1, s2);
-    TEST_SHOW("Concat(\"Hello, \", \"World!\")", 
-              result != NULL && strcmp(String_ToCString(result), "Hello, World!") == 0,
-              "\"Hello, \" + \"World!\"", 
-              "\"Hello, World!\"",
-              str_or_null(result));
+    // Граничный случай 2: Пустой DynamicArray
+    DynamicArray* empty_da = DynamicArray_Create(GetCharFieldInfo(), 0);
+    s = create_string_from_da(empty_da);
+    TEST(s != NULL, "Create from empty DA works");
+    TEST(String_Length(s) == 0, "Empty string length = 0");
+    String_Destroy(s);
+    DynamicArray_Destroy(empty_da);
+    
+    // Граничный случай 3: Создание с нулевой capacity
+    s = String_CreateEmpty(0, GetCharFieldInfo());
+    TEST(s != NULL, "CreateEmpty with 0 capacity works");
+    TEST(String_Length(s) == 0, "Length = 0");
+    String_Destroy(s);
+    
+    // Граничный случай 4: Огромная capacity
+    s = String_CreateEmpty(1000000, GetCharFieldInfo());
+    TEST(s != NULL, "CreateEmpty with huge capacity works");
+    String_Destroy(s);
+}
+
+void test_string_concat_edge_cases(void) {
+    printf("\n=== Concat Edge Cases ===\n");
+    
+    // Подготовка данных через DynamicArray
+    DynamicArray* da1 = create_da_from_chars("Hello");
+    DynamicArray* da2 = create_da_from_chars(" World");
+    DynamicArray* da_empty = DynamicArray_Create(GetCharFieldInfo(), 0);
+    
+    String* s1 = create_string_from_da(da1);
+    String* s2 = create_string_from_da(da2);
+    String* s_empty = create_string_from_da(da_empty);
+    
+    // Граничный случай 1: Конкатенация с пустой строкой
+    String* result = String_Concat(s1, s_empty);
+    TEST(result != NULL, "Concat with empty works");
+    TEST(String_Length(result) == 5, "Length = 5 (same as s1)");
+    
+    // Проверка содержимого
+    int correct = 1;
+    for(int i = 0; i < 5; i++) {
+        const char* c1 = (const char*)String_GetElement(s1, i);
+        const char* c2 = (const char*)String_GetElement(result, i);
+        if(c1 == NULL || c2 == NULL || *c1 != *c2) {
+            correct = 0;
+            break;
+        }
+    }
+    TEST(correct, "Result equals original when concat with empty");
     String_Destroy(result);
     
-    // Конкатенация с пустой
-    String* empty = String_Create("");
-    String* r1 = String_Concat(empty, s2);
-    TEST_SHOW("Concat(\"\", \"World!\")", 
-              r1 != NULL && strcmp(String_ToCString(r1), "World!") == 0,
-              "\"\" + \"World!\"", 
-              "\"World!\"",
-              str_or_null(r1));
-    String_Destroy(r1);
+    // Граничный случай 2: Конкатенация с NULL
+    TEST(String_Concat(s1, NULL) == NULL, "Concat with NULL returns NULL");
+    TEST(String_Concat(NULL, s1) == NULL, "Concat with NULL returns NULL");
     
-    String* r2 = String_Concat(s1, empty);
-    TEST_SHOW("Concat(\"Hello, \", \"\")", 
-              r2 != NULL && strcmp(String_ToCString(r2), "Hello, ") == 0,
-              "\"Hello, \" + \"\"", 
-              "\"Hello, \"",
-              str_or_null(r2));
-    String_Destroy(r2);
-    String_Destroy(empty);
+    // Граничный случай 3: Конкатенация двух пустых
+    result = String_Concat(s_empty, s_empty);
+    TEST(result != NULL, "Concat two empty strings");
+    TEST(String_Length(result) == 0, "Result empty");
+    String_Destroy(result);
     
-    // Граничные: NULL
-    String* r_null1 = String_Concat(NULL, s2);
-    TEST_SHOW("Concat(NULL, \"World!\")", 
-              r_null1 == NULL,
-              "NULL + \"World!\"", 
-              "NULL (safe)",
-              r_null1 == NULL ? "NULL" : str_or_null(r_null1));
+    // Граничный случай 4: Очень длинная конкатенация
+    DynamicArray* da_long = DynamicArray_Create(GetCharFieldInfo(), 0);
+    for(int i = 0; i < 1000; i++) {
+        char c = 'a';
+        DynamicArray_Push(da_long, &c);
+    }
+    String* s_long = create_string_from_da(da_long);
     
-    String* r_null2 = String_Concat(s1, NULL);
-    TEST_SHOW("Concat(\"Hello, \", NULL)", 
-              r_null2 == NULL,
-              "\"Hello, \" + NULL", 
-              "NULL (safe)",
-              r_null2 == NULL ? "NULL" : str_or_null(r_null2));
+    result = String_Concat(s_long, s_long);
+    TEST(result != NULL, "Concat two long strings");
+    TEST(String_Length(result) == 2000, "Length = 2000");
+    String_Destroy(result);
+    
+    String_Destroy(s_long);
+    DynamicArray_Destroy(da_long);
     
     String_Destroy(s1);
     String_Destroy(s2);
-    
-    TEST_GROUP_END();
+    String_Destroy(s_empty);
+    DynamicArray_Destroy(da1);
+    DynamicArray_Destroy(da2);
+    DynamicArray_Destroy(da_empty);
 }
 
+void test_string_substring_edge_cases(void) {
+    printf("\n=== Substring Edge Cases ===\n");
+    
+    DynamicArray* da = create_da_from_chars("Hello World");
+    String* s = create_string_from_da(da);
+    size_t len = String_Length(s);
+    
+    // Граничный случай 1: Пустая подстрока (start == end)
+    String* sub = String_Substring(s, 5, 5);
+    TEST(sub != NULL, "Empty substring (start == end)");
+    TEST(String_Length(sub) == 0, "Empty substring length = 0");
+    String_Destroy(sub);
+    
+    // Граничный случай 2: Подстрока из одного символа
+    sub = String_Substring(s, 0, 1);
+    TEST(sub != NULL, "Single char substring [0,1)");
+    TEST(String_Length(sub) == 1, "Length = 1");
+    const char* c = (const char*)String_GetElement(sub, 0);
+    TEST(c != NULL && *c == 'H', "Single char is 'H'");
+    String_Destroy(sub);
+    
+    // Граничный случай 3: Подстрока до конца
+    sub = String_Substring(s, 6, len);
+    TEST(sub != NULL, "Substring [6,end)");
+    TEST(String_Length(sub) == 5, "Length = 5");
+    
+    // Проверка "World"
+    const char* world = "World";
+    int correct = 1;
+    for(int i = 0; i < 5; i++) {
+        c = (const char*)String_GetElement(sub, i);
+        if(c == NULL || *c != world[i]) {
+            correct = 0;
+            break;
+        }
+    }
+    TEST(correct, "Substring [6,end) = 'World'");
+    String_Destroy(sub);
+    
+    // Граничный случай 4: Подстрока с start = 0, end = 0
+    sub = String_Substring(s, 0, 0);
+    TEST(sub != NULL, "Empty substring at start");
+    TEST(String_Length(sub) == 0, "Length = 0");
+    String_Destroy(sub);
+    
+    // Граничный случай 5: Неверные индексы
+    TEST(String_Substring(s, 5, 3) == NULL, "start > end returns NULL");
+    TEST(String_Substring(s, len, len+1) == NULL, "end > length returns NULL");
+    TEST(String_Substring(s, len+1, len+2) == NULL, "start > length returns NULL");
+    TEST(String_Substring(s, -1, 5) == NULL, "negative start (wrapped) returns NULL");
+    
+    // Граничный случай 6: Substring от NULL
+    TEST(String_Substring(NULL, 0, 5) == NULL, "Substring from NULL returns NULL");
+    
+    String_Destroy(s);
+    DynamicArray_Destroy(da);
+}
 
-//Тесты: String_Substring
-
-void test_string_substring(void) {
-    TEST_GROUP("String: Substring");
+void test_string_find_edge_cases(void) {
+    printf("\n=== Find Edge Cases ===\n");
     
-    String* text = String_Create("Hello, World!");
+    // Создаём строку "abababa"
+    DynamicArray* da_text = DynamicArray_Create(GetCharFieldInfo(), 7);
+    char chars[] = {'a','b','a','b','a','b','a'};
+    for(int i = 0; i < 7; i++) {
+        DynamicArray_Push(da_text, &chars[i]);
+    }
+    String* text = create_string_from_da(da_text);
     
-    // Нормальная подстрока
-    String* sub1 = String_Substring(text, 0, 5);
-    TEST_SHOW("Substring[0,5) of \"Hello, World!\"", 
-              sub1 != NULL && strcmp(String_ToCString(sub1), "Hello") == 0,
-              "[0,5)", 
-              "\"Hello\"",
-              str_or_null(sub1));
-    String_Destroy(sub1);
+    // Граничный случай 1: Пустой паттерн
+    DynamicArray* da_empty = DynamicArray_Create(GetCharFieldInfo(), 0);
+    String* empty_pat = create_string_from_da(da_empty);
     
-    // Подстрока из середины
-    String* sub2 = String_Substring(text, 7, 12);
-    TEST_SHOW("Substring[7,12) of \"Hello, World!\"", 
-              sub2 != NULL && strcmp(String_ToCString(sub2), "World") == 0,
-              "[7,12)", 
-              "\"World\"",
-              str_or_null(sub2));
-    String_Destroy(sub2);
+    size_t count;
+    int* indices = String_Find(text, empty_pat, true, &count);
+    TEST(indices == NULL && count == 0, "Empty pattern not found");
     
-    // Пустая подстрока
-    String* sub_empty = String_Substring(text, 5, 5);
-    TEST_SHOW("Substring[5,5) (empty range)", 
-              sub_empty != NULL && String_Length(sub_empty) == 0,
-              "[5,5)", 
-              "\"\" (empty)",
-              str_or_null(sub_empty));
-    String_Destroy(sub_empty);
+    // Граничный случай 2: Паттерн длиннее текста
+    DynamicArray* da_long = create_da_from_chars("abababaabababa");
+    String* long_pat = create_string_from_da(da_long);
     
-    // Граничные случаи: ошибки
-    String* err1 = String_Substring(text, 10, 5);
-    TEST_SHOW("Substring[10,5) (start > end)", 
-              err1 == NULL,
-              "[10,5)", 
-              "NULL (invalid)",
-              err1 == NULL ? "NULL" : str_or_null(err1));
+    indices = String_Find(text, long_pat, true, &count);
+    TEST(indices == NULL && count == 0, "Pattern longer than text not found");
+    String_Destroy(long_pat);
+    DynamicArray_Destroy(da_long);
     
-    String* err2 = String_Substring(text, 0, 100);
-    TEST_SHOW("Substring[0,100) (end > length)", 
-              err2 == NULL,
-              "[0,100)", 
-              "NULL (invalid)",
-              err2 == NULL ? "NULL" : str_or_null(err2));
+    // Граничный случай 3: Паттерн в самом начале
+    DynamicArray* da_start = create_da_from_chars("aba");
+    String* start_pat = create_string_from_da(da_start);
     
-    String* err3 = String_Substring(NULL, 0, 5);
-    TEST_SHOW("Substring from NULL string", 
-              err3 == NULL,
-              "NULL input", 
-              "NULL (safe)",
-              err3 == NULL ? "NULL" : str_or_null(err3));
+    indices = String_Find(text, start_pat, true, &count);
+    TEST(count == 3, "Pattern 'aba' appears 3 times");
+    if(indices) {
+        TEST(indices[0] == 0, "First at position 0");
+        TEST(indices[1] == 2, "Second at position 2");
+        TEST(indices[2] == 4, "Third at position 4");
+        free(indices);
+    }
+    String_Destroy(start_pat);
+    DynamicArray_Destroy(da_start);
+    
+    // Граничный случай 4: Паттерн в самом конце
+    DynamicArray* da_end = create_da_from_chars("aba");
+    String* end_pat = create_string_from_da(da_end);
+    
+    indices = String_Find(text, end_pat, true, &count);
+    TEST(count == 3, "Pattern at end also appears 3 times");
+    if(indices) free(indices);
+    String_Destroy(end_pat);
+    DynamicArray_Destroy(da_end);
+    
+    // Граничный случай 5: Паттерн из одного символа
+    DynamicArray* da_one = create_da_from_chars("a");
+    String* one_pat = create_string_from_da(da_one);
+    
+    indices = String_Find(text, one_pat, true, &count);
+    TEST(count == 4, "Single char 'a' appears 4 times");
+    if(indices) free(indices);
+    String_Destroy(one_pat);
+    DynamicArray_Destroy(da_one);
+    
+    // Граничный случай 6: Поиск с регистром
+    DynamicArray* da_mixed = create_da_from_chars("AbA");
+    String* mixed_pat = create_string_from_da(da_mixed);
+    
+    indices = String_Find(text, mixed_pat, true, &count);
+    TEST(count == 0 && indices == NULL, "Case sensitive: different case not found");
+    
+    String_Destroy(mixed_pat);
+    DynamicArray_Destroy(da_mixed);
+    
+    // Граничный случай 7: Поиск с NULL параметрами
+    TEST(String_Find(NULL, text, true, &count) == NULL, "Find with NULL text");
+    TEST(String_Find(text, NULL, true, &count) == NULL, "Find with NULL pattern");
+    TEST(String_Find(text, text, true, NULL) == NULL, "Find with NULL out_count");
+    
+    // Граничный случай 8: Поиск разных типов
+    DynamicArray* da_int = DynamicArray_Create(GetIntFieldInfo(), 1);
+    int num = 42;
+    DynamicArray_Push(da_int, &num);
+    String* int_str = create_string_from_da(da_int);  // Это всё равно char строка!
+    // Правильно создаём int строку отдельно
+    String* int_string = String_Create(&num, 1, GetIntFieldInfo());
+    
+    indices = String_Find(text, int_string, true, &count);
+    TEST(indices == NULL && count == 0, "Different types not found");
+    
+    String_Destroy(int_string);
+    DynamicArray_Destroy(da_int);
     
     String_Destroy(text);
-    
-    TEST_GROUP_END();
-}
-
-
-//Тесты: String_Find
-
-void test_string_find(void) {
-    TEST_GROUP("String: Find (search)");
-    
-    String* text = String_Create("Hello, hello, HELLO!");
-    String* pattern = String_Create("hello");
-    
-    // Case-sensitive поиск
-    size_t count_cs = 0;
-    int* idx_cs = String_Find(text, pattern, true, &count_cs);
-    TEST_SHOW("Find(\"hello\", case-sensitive)", 
-              idx_cs != NULL && count_cs == 1,
-              "text=\"Hello, hello, HELLO!\", pattern=\"hello\", sensitive=true", 
-              "count=1, pos=[7]",
-              idx_cs ? "found" : "NULL");
-    if (idx_cs) {
-        printf("│        Positions: [%d]\n", idx_cs[0]);
-        free(idx_cs);
-    }
-    
-    // Case-insensitive поиск
-    size_t count_ci = 0;
-    int* idx_ci = String_Find(text, pattern, false, &count_ci);
-    TEST_SHOW("Find(\"hello\", case-insensitive)", 
-              idx_ci != NULL && count_ci == 3,
-              "text=\"Hello, hello, HELLO!\", pattern=\"hello\", sensitive=false", 
-              "count=3, pos=[0,7,14]",
-              idx_ci ? "found" : "NULL");
-    if (idx_ci) {
-        printf("│        Positions: [%d, %d, %d]\n", idx_ci[0], idx_ci[1], idx_ci[2]);
-        free(idx_ci);
-    }
-    
-    // Поиск несуществующего
-    String* not_found = String_Create("xyz");
-    size_t count_nf = 0;
-    int* idx_nf = String_Find(text, not_found, true, &count_nf);
-    TEST_SHOW("Find(\"xyz\", not exists)", 
-              idx_nf == NULL && count_nf == 0,
-              "pattern=\"xyz\"", 
-              "NULL, count=0",
-              idx_nf == NULL ? "NULL" : "found");
-    String_Destroy(not_found);
-    
-    // Граничные: пустой паттерн
-    String* empty_pat = String_Create("");
-    size_t count_ep = 0;
-    int* idx_ep = String_Find(text, empty_pat, true, &count_ep);
-    TEST_SHOW("Find(\"\") (empty pattern)", 
-              idx_ep == NULL,
-              "empty pattern", 
-              "NULL (invalid)",
-              idx_ep == NULL ? "NULL" : "found");
     String_Destroy(empty_pat);
-    
-    // Граничные: NULL параметры
-    size_t dummy = 0;
-    int* idx_null1 = String_Find(NULL, pattern, true, &dummy);
-    TEST_SHOW("Find in NULL text", 
-              idx_null1 == NULL,
-              "text=NULL", 
-              "NULL (safe)",
-              idx_null1 == NULL ? "NULL" : "found");
-    
-    int* idx_null2 = String_Find(text, NULL, true, &dummy);
-    TEST_SHOW("Find with NULL pattern", 
-              idx_null2 == NULL,
-              "pattern=NULL", 
-              "NULL (safe)",
-              idx_null2 == NULL ? "NULL" : "found");
-    
-    String_Destroy(text);
-    String_Destroy(pattern);
-    
-    TEST_GROUP_END();
+    DynamicArray_Destroy(da_text);
+    DynamicArray_Destroy(da_empty);
 }
 
+void test_string_type_mismatch(void) {
+    printf("\n=== Type Mismatch Tests ===\n");
+    
+    // Создаём char строку через DynamicArray
+    DynamicArray* da_char = create_da_from_chars("Hello");
+    String* s_char = create_string_from_da(da_char);
+    
+    // Создаём int строку через DynamicArray (но для int нужен другой подход)
+    DynamicArray* da_int = DynamicArray_Create(GetIntFieldInfo(), 3);
+    int nums[] = {1, 2, 3};
+    for(int i = 0; i < 3; i++) {
+        DynamicArray_Push(da_int, &nums[i]);
+    }
+    
+    // Для int строки используем String_Create напрямую с int данными
+    String* s_int = String_Create(nums, 3, GetIntFieldInfo());
+    
+    // Граничный случай 1: Проверка разных типов
+    TEST(String_SameType(s_char, s_int) == false, "Char and Int are different types");
+    
+    // Граничный случай 2: Конкатенация разных типов
+    String* result = String_Concat(s_char, s_int);
+    TEST(result == NULL, "Concat different types fails");
+    
+    // Граничный случай 3: Поиск с разными типами
+    size_t count;
+    int* indices = String_Find(s_char, s_int, true, &count);
+    TEST(indices == NULL && count == 0, "Find with different types fails");
+    
+    String_Destroy(s_char);
+    String_Destroy(s_int);
+    DynamicArray_Destroy(da_char);
+    DynamicArray_Destroy(da_int);
+}
 
-//Тесты: String_Utils (Length, ToCString, cache)
-
-void test_string_utils(void) {
-    TEST_GROUP("String: Utilities (Length, ToCString, cache)");
-    
-    // Length
-    String* s1 = String_Create("Test");
-    TEST_RUN("Length(\"Test\") == 4", String_Length(s1) == 4);
-    String_Destroy(s1);
-    
-    String* empty = String_Create("");
-    TEST_RUN("Length(\"\") == 0", String_Length(empty) == 0);
-    String_Destroy(empty);
-    
-    TEST_RUN("Length(NULL) == 0", String_Length(NULL) == 0);
-    
-    // ToCString и кэширование
-    String* s2 = String_Create("Cache");
-    const char* cstr1 = String_ToCString(s2);
-    const char* cstr2 = String_ToCString(s2);
-    TEST_SHOW("ToCString cache (same pointer)", 
-              cstr1 == cstr2 && cstr1 != NULL,
-              "Two calls to ToCString", 
-              "Same pointer returned",
-              cstr1 == cstr2 ? "YES" : "NO");
-    TEST_RUN("ToCString content correct", strcmp(cstr1, "Cache") == 0);
-    String_Destroy(s2);
-    
-    // ToCString для NULL
-    TEST_RUN("ToCString(NULL) == NULL", String_ToCString(NULL) == NULL);
-    
-    TEST_GROUP_END();
+void run_string_tests(void) {
+    test_string_create_edge_cases();
+    test_string_concat_edge_cases();
+    test_string_substring_edge_cases();
+    test_string_find_edge_cases();
+    test_string_type_mismatch();
 }

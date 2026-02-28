@@ -139,30 +139,6 @@ run_tests/fast:
 	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/build
 .PHONY : run_tests/fast
 
-__/src/Vector.obj: __/src/Vector.c.obj
-.PHONY : __/src/Vector.obj
-
-# target to build an object file
-__/src/Vector.c.obj:
-	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/Vector.c.obj
-.PHONY : __/src/Vector.c.obj
-
-__/src/Vector.i: __/src/Vector.c.i
-.PHONY : __/src/Vector.i
-
-# target to preprocess a source file
-__/src/Vector.c.i:
-	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/Vector.c.i
-.PHONY : __/src/Vector.c.i
-
-__/src/Vector.s: __/src/Vector.c.s
-.PHONY : __/src/Vector.s
-
-# target to generate assembly for a file
-__/src/Vector.c.s:
-	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/Vector.c.s
-.PHONY : __/src/Vector.c.s
-
 __/src/char_type.obj: __/src/char_type.c.obj
 .PHONY : __/src/char_type.obj
 
@@ -186,6 +162,54 @@ __/src/char_type.s: __/src/char_type.c.s
 __/src/char_type.c.s:
 	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/char_type.c.s
 .PHONY : __/src/char_type.c.s
+
+__/src/dynamic_array.obj: __/src/dynamic_array.c.obj
+.PHONY : __/src/dynamic_array.obj
+
+# target to build an object file
+__/src/dynamic_array.c.obj:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/dynamic_array.c.obj
+.PHONY : __/src/dynamic_array.c.obj
+
+__/src/dynamic_array.i: __/src/dynamic_array.c.i
+.PHONY : __/src/dynamic_array.i
+
+# target to preprocess a source file
+__/src/dynamic_array.c.i:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/dynamic_array.c.i
+.PHONY : __/src/dynamic_array.c.i
+
+__/src/dynamic_array.s: __/src/dynamic_array.c.s
+.PHONY : __/src/dynamic_array.s
+
+# target to generate assembly for a file
+__/src/dynamic_array.c.s:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/dynamic_array.c.s
+.PHONY : __/src/dynamic_array.c.s
+
+__/src/int_type.obj: __/src/int_type.c.obj
+.PHONY : __/src/int_type.obj
+
+# target to build an object file
+__/src/int_type.c.obj:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/int_type.c.obj
+.PHONY : __/src/int_type.c.obj
+
+__/src/int_type.i: __/src/int_type.c.i
+.PHONY : __/src/int_type.i
+
+# target to preprocess a source file
+__/src/int_type.c.i:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/int_type.c.i
+.PHONY : __/src/int_type.c.i
+
+__/src/int_type.s: __/src/int_type.c.s
+.PHONY : __/src/int_type.s
+
+# target to generate assembly for a file
+__/src/int_type.c.s:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/int_type.c.s
+.PHONY : __/src/int_type.c.s
 
 __/src/my_string.obj: __/src/my_string.c.obj
 .PHONY : __/src/my_string.obj
@@ -293,12 +317,15 @@ help:
 	@echo ... rebuild_cache
 	@echo ... test
 	@echo ... run_tests
-	@echo ... __/src/Vector.obj
-	@echo ... __/src/Vector.i
-	@echo ... __/src/Vector.s
 	@echo ... __/src/char_type.obj
 	@echo ... __/src/char_type.i
 	@echo ... __/src/char_type.s
+	@echo ... __/src/dynamic_array.obj
+	@echo ... __/src/dynamic_array.i
+	@echo ... __/src/dynamic_array.s
+	@echo ... __/src/int_type.obj
+	@echo ... __/src/int_type.i
+	@echo ... __/src/int_type.s
 	@echo ... __/src/my_string.obj
 	@echo ... __/src/my_string.i
 	@echo ... __/src/my_string.s

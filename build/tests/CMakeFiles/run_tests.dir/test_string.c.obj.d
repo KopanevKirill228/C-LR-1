@@ -24,9 +24,11 @@ tests/CMakeFiles/run_tests.dir/test_string.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/errno.h \
  C:/Users/kiris/Desktop/w64devkit/include/string.h \
  C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h \
- C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
  C:/Users/kiris/C-LR-1/src/my_string.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
  C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
- C:/Users/kiris/C-LR-1/src/fieldinfo.h C:/Users/kiris/C-LR-1/src/Vector.h \
+ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
+ C:/Users/kiris/C-LR-1/src/fieldinfo.h \
+ C:/Users/kiris/C-LR-1/src/Dynamic_Array.h \
+ C:/Users/kiris/C-LR-1/src/Dynamic_Array.h \
  C:/Users/kiris/C-LR-1/src/fieldinfo.h

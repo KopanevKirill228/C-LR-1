@@ -1,5 +1,6 @@
-CMakeFiles/demo.dir/src/wchar_type.c.obj: \
- C:\Users\kiris\C-LR-1\src\wchar_type.c \
+CMakeFiles/demo.dir/src/Dynamic_Array.c.obj: \
+ C:\Users\kiris\C-LR-1\src\Dynamic_Array.c \
+ C:\Users\kiris\C-LR-1\src\dynamic_array.h \
  C:\Users\kiris\C-LR-1\src\fieldinfo.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
  C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
@@ -23,4 +24,6 @@ CMakeFiles/demo.dir/src/wchar_type.c.obj: \
  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdlib_s.h \
  C:/Users/kiris/Desktop/w64devkit/include/malloc.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
- C:/Users/kiris/Desktop/w64devkit/include/errno.h
+ C:/Users/kiris/Desktop/w64devkit/include/errno.h \
+ C:/Users/kiris/Desktop/w64devkit/include/string.h \
+ C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h

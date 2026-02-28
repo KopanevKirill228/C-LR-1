@@ -1,4 +1,3 @@
-// my_string.c
 #include "my_string.h"
 #include "dynamic_array.h"
 #include "fieldinfo.h"
@@ -143,7 +142,7 @@ const void* String_GetElement(const String* s, size_t index) {
     return DynamicArray_Get(s->data, index);  // ← Обновлено
 }
 
-// ← УНИВЕРСАЛЬНАЯ ПЕЧАТЬ (как СТРОКА, не массив!)
+// УНИВЕРСАЛЬНАЯ ПЕЧАТЬ (как СТРОКА, не массив!)
 void String_Print(FILE* out, const String* s) {
     if (s == NULL || s->data == NULL || s->type_info == NULL) return;
     
@@ -152,10 +151,10 @@ void String_Print(FILE* out, const String* s) {
         return;
     }
     
-    // ← Нет скобок и запятых — вывод как строка!
+
     for (size_t i = 0; i < String_Length(s); i++) {
         const void* elem = String_GetElement(s, i);
-        s->type_info->print(out, (void*)elem);  // ← Полиморфный вызов
+        s->type_info->print(out, (void*)elem); 
     }
 }
 

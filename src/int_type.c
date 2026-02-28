@@ -1,19 +1,14 @@
-// int_type.c
 #include "fieldinfo.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 static void* int_copy(void* src) {
     if (src == NULL) return NULL;
-    int* new_int = (int*)malloc(sizeof(int));
-    if (new_int != NULL) {
-        *new_int = *(int*)src;
-    }
-    return new_int;
+    return src;
 }
 
 static void int_destroy(void* elem) {
-    (void)elem;  // Для простых типов ничего не делаем
+    (void)elem;
 }
 
 static int int_compare(void* a, void* b) {
