@@ -29,7 +29,7 @@ static int is_alnum(char c) {
 DynamicArray* Tokenize(const String* s) {
     // Проверка: только для char строк
     if (!Tokenize_Supported(s)) {
-        return NULL; //иначе нельзя
+        return NULL;
     }
     
     size_t len = String_Length(s);
@@ -40,70 +40,86 @@ DynamicArray* Tokenize(const String* s) {
     if (tokens == NULL) return NULL;
     
     size_t i = 0;
+    size_t start = 0;
+    int state = 0; // 0: вне лексемы, 1: в идентификаторе, 2: в разделителе
+    
     while (i < len) {
-        // Пропускаем пробельные символы
-        while (i < len) {
-            const char* c = (const char*)String_GetElement(s, i);
-            if (c == NULL) {
-                Tokenize_Destroy(tokens);
-                return NULL;
-            }
-            if (!is_whitespace(*c)) break;
-            i++;
-        }
-        
-        if (i >= len) break;
-        
-        const char* current = (const char*)String_GetElement(s, i);
-        if (current == NULL) {
+        const char* c = (const char*)String_GetElement(s, i);
+        if (c == NULL) {
             Tokenize_Destroy(tokens);
             return NULL;
         }
         
-        size_t start = i;
+        char current = *c;
+        bool is_space = is_whitespace(current);
+        bool is_alnum_char = is_alnum(current);
+        bool is_delim_char = is_delimiter(current);
         
-        // Случай 1: Идентификатор (буквы и цифры)
-        if (is_alnum(*current)) {
-            // Собираем последовательность букв/цифр
-            while (i < len) {
-                const char* c = (const char*)String_GetElement(s, i);
-                if (c == NULL || !is_alnum(*c)) break;
-                i++;
+        // Состояние 0: вне лексемы
+        if (state == 0) {
+            if (!is_space) {
+                // Начинаем новую лексему
+                start = i;
+                if (is_alnum_char) {
+                    state = 1; // идентификатор
+                } else if (is_delim_char) {
+                    state = 2; // разделитель
+                } else {
+                    // Неизвестный символ - пропускаем
+                    i++;
+                    continue;
+                }
             }
-            
-            // Создаём лексему-идентификатор
+        }
+        // Состояние 1: в идентификаторе
+        else if (state == 1) {
+            if (!is_alnum_char || is_space || is_delim_char) {
+                // Конец идентификатора
+                String* token = String_Substring(s, start, i);
+                if (token == NULL) {
+                    Tokenize_Destroy(tokens);
+                    return NULL;
+                }
+                if (DynamicArray_Push(tokens, &token) != 0) {
+                    String_Destroy(token);
+                    Tokenize_Destroy(tokens);
+                    return NULL;
+                }
+                state = 0;
+                continue; // обрабатываем текущий символ заново
+            }
+        }
+        // Состояние 2: в разделителе
+        else if (state == 2) {
+            // Разделитель всегда один символ
             String* token = String_Substring(s, start, i);
             if (token == NULL) {
                 Tokenize_Destroy(tokens);
                 return NULL;
             }
-            
-            // Сохраняем указатель на лексему в массиве
             if (DynamicArray_Push(tokens, &token) != 0) {
                 String_Destroy(token);
                 Tokenize_Destroy(tokens);
                 return NULL;
             }
+            state = 0;
+            continue; // обрабатываем текущий символ заново
         }
-        // Случай 2: Разделитель или оператор (одиночный символ)
-        else if (is_delimiter(*current)) {
-            i++; // Берём один символ
-            
-            String* token = String_Substring(s, start, i);
-            if (token == NULL) {
-                Tokenize_Destroy(tokens);
-                return NULL;
-            }
-            
-            if (DynamicArray_Push(tokens, &token) != 0) {
-                String_Destroy(token);
-                Tokenize_Destroy(tokens);
-                return NULL;
-            }
+        
+        i++;
+    }
+    
+    // Обрабатываем последнюю лексему
+    if (state == 1 || state == 2) {
+        String* token = String_Substring(s, start, i);
+        if (token == NULL) {
+            Tokenize_Destroy(tokens);
+            return NULL;
         }
-        // Случай 3: Неизвестный символ (пропускаем)
-        else {
-            i++;
+        if (DynamicArray_Push(tokens, &token) != 0) {
+            String_Destroy(token);
+            Tokenize_Destroy(tokens);
+            return NULL;
         }
     }
     
@@ -158,6 +174,7 @@ size_t Tokenize_Count(const DynamicArray* tokens) {
     return (tokens != NULL) ? DynamicArray_Size(tokens) : 0;
 }
 
+// Проверяет, является ли строка char-типом (поддерживает ли токенизацию)
 bool Tokenize_Supported(const String* s) {
     return (s != NULL && String_GetType(s) == GetCharFieldInfo());
 }
