@@ -116,6 +116,59 @@ tests/CMakeFiles/run_tests.dir/__/src/my_string.c.obj: C:/Users/kiris/C-LR-1/src
   C:/Users/kiris/C-LR-1/src/fieldinfo.h \
   C:/Users/kiris/C-LR-1/src/my_string.h
 
+tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj: C:/Users/kiris/C-LR-1/src/string_type.c \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_mac.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_off_t.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_secapi.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt_stdio_config.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt_wstdlib.h \
+  C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
+  C:/Users/kiris/Desktop/w64devkit/include/errno.h \
+  C:/Users/kiris/Desktop/w64devkit/include/limits.h \
+  C:/Users/kiris/Desktop/w64devkit/include/malloc.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sdks/_mingw_ddk.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdio_s.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdlib_s.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stdio.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stdlib.h \
+  C:/Users/kiris/Desktop/w64devkit/include/swprintf.inl \
+  C:/Users/kiris/Desktop/w64devkit/include/vadefs.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
+  C:/Users/kiris/C-LR-1/src/Dynamic_Array.h \
+  C:/Users/kiris/C-LR-1/src/fieldinfo.h \
+  C:/Users/kiris/C-LR-1/src/my_string.h
+
+tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj: C:/Users/kiris/C-LR-1/src/tokenizer.c \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_mac.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_off_t.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_secapi.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt_stdio_config.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt_wctype.h \
+  C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
+  C:/Users/kiris/Desktop/w64devkit/include/ctype.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sdks/_mingw_ddk.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdio_s.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stdio.h \
+  C:/Users/kiris/Desktop/w64devkit/include/swprintf.inl \
+  C:/Users/kiris/Desktop/w64devkit/include/vadefs.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
+  C:/Users/kiris/C-LR-1/src/Dynamic_Array.h \
+  C:/Users/kiris/C-LR-1/src/dynamic_array.h \
+  C:/Users/kiris/C-LR-1/src/fieldinfo.h \
+  C:/Users/kiris/C-LR-1/src/my_string.h \
+  C:/Users/kiris/C-LR-1/src/tokenizer.h
+
 tests/CMakeFiles/run_tests.dir/test_core.c.obj: C:/Users/kiris/C-LR-1/tests/test_core.c \
   C:/Users/kiris/C-LR-1/src/Dynamic_Array.h \
   C:/Users/kiris/C-LR-1/src/fieldinfo.h \
@@ -472,6 +525,40 @@ tests/CMakeFiles/run_tests.dir/test_string.c.obj: C:/Users/kiris/C-LR-1/tests/te
   C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
   C:/Users/kiris/C-LR-1/tests/test_macros.h
 
+tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj: C:/Users/kiris/C-LR-1/tests/test_tokenizer.c \
+  C:/Users/kiris/C-LR-1/src/Dynamic_Array.h \
+  C:/Users/kiris/C-LR-1/src/dynamic_array.h \
+  C:/Users/kiris/C-LR-1/src/fieldinfo.h \
+  C:/Users/kiris/C-LR-1/src/my_string.h \
+  C:/Users/kiris/C-LR-1/src/tokenizer.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_mac.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_off_t.h \
+  C:/Users/kiris/Desktop/w64devkit/include/_mingw_secapi.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt_stdio_config.h \
+  C:/Users/kiris/Desktop/w64devkit/include/corecrt_wstdlib.h \
+  C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h \
+  C:/Users/kiris/Desktop/w64devkit/include/errno.h \
+  C:/Users/kiris/Desktop/w64devkit/include/limits.h \
+  C:/Users/kiris/Desktop/w64devkit/include/malloc.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sdks/_mingw_ddk.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdio_s.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sec_api/stdlib_s.h \
+  C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stddef.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stdio.h \
+  C:/Users/kiris/Desktop/w64devkit/include/stdlib.h \
+  C:/Users/kiris/Desktop/w64devkit/include/string.h \
+  C:/Users/kiris/Desktop/w64devkit/include/swprintf.inl \
+  C:/Users/kiris/Desktop/w64devkit/include/vadefs.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
+  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
+  C:/Users/kiris/C-LR-1/tests/test_macros.h
+
 
 C:/Users/kiris/Desktop/w64devkit/include/corecrt_wctype.h:
 
@@ -513,6 +600,8 @@ C:/Users/kiris/Desktop/w64devkit/include/stddef.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/apiset.h:
 
+C:/Users/kiris/C-LR-1/src/tokenizer.h:
+
 C:/Users/kiris/Desktop/w64devkit/include/crtdefs.h:
 
 C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/gfniintrin.h:
@@ -525,13 +614,15 @@ C:/Users/kiris/Desktop/w64devkit/include/sec_api/string_s.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/errno.h:
 
-C:/Users/kiris/Desktop/w64devkit/include/dpapi.h:
-
 C:/Users/kiris/Desktop/w64devkit/include/ioapiset.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/malloc.h:
 
 C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h:
+
+C:/Users/kiris/Desktop/w64devkit/include/winnls.h:
+
+C:/Users/kiris/C-LR-1/src/tokenizer.c:
 
 C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mwaitintrin.h:
 
@@ -595,6 +686,8 @@ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/avx51
 
 C:/Users/kiris/C-LR-1/src/my_string.h:
 
+C:/Users/kiris/C-LR-1/src/string_type.c:
+
 C:/Users/kiris/C-LR-1/tests/test_macros.h:
 
 C:/Users/kiris/C-LR-1/tests/test_runner.c:
@@ -636,6 +729,8 @@ C:/Users/kiris/Desktop/w64devkit/include/datetimeapi.h:
 C:/Users/kiris/Desktop/w64devkit/include/dde.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/debugapi.h:
+
+C:/Users/kiris/Desktop/w64devkit/include/dpapi.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/driverspecs.h:
 
@@ -883,8 +978,6 @@ C:/Users/kiris/Desktop/w64devkit/include/winioctl.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/winnetwk.h:
 
-C:/Users/kiris/Desktop/w64devkit/include/winnls.h:
-
 C:/Users/kiris/Desktop/w64devkit/include/winreg.h:
 
 C:/Users/kiris/Desktop/w64devkit/include/winsmcrd.h:
@@ -1058,6 +1151,8 @@ C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/sm4in
 C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/smmintrin.h:
 
 C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tbmintrin.h:
+
+C:/Users/kiris/C-LR-1/tests/test_tokenizer.c:
 
 C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/tmmintrin.h:
 

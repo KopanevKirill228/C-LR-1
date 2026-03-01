@@ -5,6 +5,7 @@
 
 extern void run_core_tests(void);
 extern void run_string_tests(void);
+extern void run_tokenizer_tests(void);
 
 int main(void) {
     // Настройка консоли для UTF-8
@@ -19,6 +20,7 @@ int main(void) {
     // Запуск тестов
     run_core_tests();
     run_string_tests();
+    run_tokenizer_tests();
     
     // Статистика
     PRINT_STATS();

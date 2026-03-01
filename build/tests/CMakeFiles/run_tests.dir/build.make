@@ -169,6 +169,48 @@ tests/CMakeFiles/run_tests.dir/__/src/int_type.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/__/src/int_type.c.s"
 	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\int_type.c -o CMakeFiles\run_tests.dir\__\src\int_type.c.s
 
+tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
+tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj: C:/Users/kiris/C-LR-1/src/tokenizer.c
+tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj: tests/CMakeFiles/run_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj -MF CMakeFiles\run_tests.dir\__\src\tokenizer.c.obj.d -o CMakeFiles\run_tests.dir\__\src\tokenizer.c.obj -c C:\Users\kiris\C-LR-1\src\tokenizer.c
+
+tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/run_tests.dir/__/src/tokenizer.c.i"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\src\tokenizer.c > CMakeFiles\run_tests.dir\__\src\tokenizer.c.i
+
+tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/__/src/tokenizer.c.s"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\tokenizer.c -o CMakeFiles\run_tests.dir\__\src\tokenizer.c.s
+
+tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
+tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj: C:/Users/kiris/C-LR-1/src/string_type.c
+tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj: tests/CMakeFiles/run_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj -MF CMakeFiles\run_tests.dir\__\src\string_type.c.obj.d -o CMakeFiles\run_tests.dir\__\src\string_type.c.obj -c C:\Users\kiris\C-LR-1\src\string_type.c
+
+tests/CMakeFiles/run_tests.dir/__/src/string_type.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/run_tests.dir/__/src/string_type.c.i"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\src\string_type.c > CMakeFiles\run_tests.dir\__\src\string_type.c.i
+
+tests/CMakeFiles/run_tests.dir/__/src/string_type.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/__/src/string_type.c.s"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\src\string_type.c -o CMakeFiles\run_tests.dir\__\src\string_type.c.s
+
+tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj: tests/CMakeFiles/run_tests.dir/flags.make
+tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj: C:/Users/kiris/C-LR-1/tests/test_tokenizer.c
+tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj: tests/CMakeFiles/run_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj -MF CMakeFiles\run_tests.dir\test_tokenizer.c.obj.d -o CMakeFiles\run_tests.dir\test_tokenizer.c.obj -c C:\Users\kiris\C-LR-1\tests\test_tokenizer.c
+
+tests/CMakeFiles/run_tests.dir/test_tokenizer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/run_tests.dir/test_tokenizer.c.i"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\kiris\C-LR-1\tests\test_tokenizer.c > CMakeFiles\run_tests.dir\test_tokenizer.c.i
+
+tests/CMakeFiles/run_tests.dir/test_tokenizer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/run_tests.dir/test_tokenizer.c.s"
+	cd /d C:\Users\kiris\C-LR-1\build\tests && C:\Users\kiris\Desktop\w64devkit\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\kiris\C-LR-1\tests\test_tokenizer.c -o CMakeFiles\run_tests.dir\test_tokenizer.c.s
+
 # Object files for target run_tests
 run_tests_OBJECTS = \
 "CMakeFiles/run_tests.dir/test_runner.c.obj" \
@@ -177,7 +219,10 @@ run_tests_OBJECTS = \
 "CMakeFiles/run_tests.dir/__/src/my_string.c.obj" \
 "CMakeFiles/run_tests.dir/__/src/dynamic_array.c.obj" \
 "CMakeFiles/run_tests.dir/__/src/char_type.c.obj" \
-"CMakeFiles/run_tests.dir/__/src/int_type.c.obj"
+"CMakeFiles/run_tests.dir/__/src/int_type.c.obj" \
+"CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj" \
+"CMakeFiles/run_tests.dir/__/src/string_type.c.obj" \
+"CMakeFiles/run_tests.dir/test_tokenizer.c.obj"
 
 # External object files for target run_tests
 run_tests_EXTERNAL_OBJECTS =
@@ -189,11 +234,14 @@ tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/my_string.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/dynamic_array.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/char_type.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/int_type.c.obj
+tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj
+tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj
+tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/build.make
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/linkLibs.rsp
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/objects1.rsp
 tests/run_tests.exe: tests/CMakeFiles/run_tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable run_tests.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\kiris\C-LR-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking C executable run_tests.exe"
 	cd /d C:\Users\kiris\C-LR-1\build\tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\run_tests.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

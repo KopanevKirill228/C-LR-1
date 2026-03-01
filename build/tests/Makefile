@@ -235,6 +235,54 @@ __/src/my_string.c.s:
 	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/my_string.c.s
 .PHONY : __/src/my_string.c.s
 
+__/src/string_type.obj: __/src/string_type.c.obj
+.PHONY : __/src/string_type.obj
+
+# target to build an object file
+__/src/string_type.c.obj:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/string_type.c.obj
+.PHONY : __/src/string_type.c.obj
+
+__/src/string_type.i: __/src/string_type.c.i
+.PHONY : __/src/string_type.i
+
+# target to preprocess a source file
+__/src/string_type.c.i:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/string_type.c.i
+.PHONY : __/src/string_type.c.i
+
+__/src/string_type.s: __/src/string_type.c.s
+.PHONY : __/src/string_type.s
+
+# target to generate assembly for a file
+__/src/string_type.c.s:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/string_type.c.s
+.PHONY : __/src/string_type.c.s
+
+__/src/tokenizer.obj: __/src/tokenizer.c.obj
+.PHONY : __/src/tokenizer.obj
+
+# target to build an object file
+__/src/tokenizer.c.obj:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.obj
+.PHONY : __/src/tokenizer.c.obj
+
+__/src/tokenizer.i: __/src/tokenizer.c.i
+.PHONY : __/src/tokenizer.i
+
+# target to preprocess a source file
+__/src/tokenizer.c.i:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.i
+.PHONY : __/src/tokenizer.c.i
+
+__/src/tokenizer.s: __/src/tokenizer.c.s
+.PHONY : __/src/tokenizer.s
+
+# target to generate assembly for a file
+__/src/tokenizer.c.s:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/__/src/tokenizer.c.s
+.PHONY : __/src/tokenizer.c.s
+
 test_core.obj: test_core.c.obj
 .PHONY : test_core.obj
 
@@ -307,6 +355,30 @@ test_string.c.s:
 	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_string.c.s
 .PHONY : test_string.c.s
 
+test_tokenizer.obj: test_tokenizer.c.obj
+.PHONY : test_tokenizer.obj
+
+# target to build an object file
+test_tokenizer.c.obj:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_tokenizer.c.obj
+.PHONY : test_tokenizer.c.obj
+
+test_tokenizer.i: test_tokenizer.c.i
+.PHONY : test_tokenizer.i
+
+# target to preprocess a source file
+test_tokenizer.c.i:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_tokenizer.c.i
+.PHONY : test_tokenizer.c.i
+
+test_tokenizer.s: test_tokenizer.c.s
+.PHONY : test_tokenizer.s
+
+# target to generate assembly for a file
+test_tokenizer.c.s:
+	cd /d C:\Users\kiris\C-LR-1\build && $(MAKE) $(MAKESILENT) -f tests\CMakeFiles\run_tests.dir\build.make tests/CMakeFiles/run_tests.dir/test_tokenizer.c.s
+.PHONY : test_tokenizer.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -329,6 +401,12 @@ help:
 	@echo ... __/src/my_string.obj
 	@echo ... __/src/my_string.i
 	@echo ... __/src/my_string.s
+	@echo ... __/src/string_type.obj
+	@echo ... __/src/string_type.i
+	@echo ... __/src/string_type.s
+	@echo ... __/src/tokenizer.obj
+	@echo ... __/src/tokenizer.i
+	@echo ... __/src/tokenizer.s
 	@echo ... test_core.obj
 	@echo ... test_core.i
 	@echo ... test_core.s
@@ -338,6 +416,9 @@ help:
 	@echo ... test_string.obj
 	@echo ... test_string.i
 	@echo ... test_string.s
+	@echo ... test_tokenizer.obj
+	@echo ... test_tokenizer.i
+	@echo ... test_tokenizer.s
 .PHONY : help
 
 

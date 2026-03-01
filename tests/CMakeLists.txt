@@ -8,6 +8,9 @@ add_executable(run_tests
     ../src/char_type.c
     ../src/int_type.c
     ../src/fieldinfo.h
+    ../src/tokenizer.c
+    ../src/string_type.c 
+    test_tokenizer.c
 )
 
 # Линковка
