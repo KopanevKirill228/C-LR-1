@@ -18,6 +18,10 @@ static int int_compare(void* a, void* b) {
     return *(int*)a - *(int*)b;
 }
 
+static int int_compare_ignore_case(void* a, void* b) {
+    return *(int*)a - *(int*)b;  // то же самое (тут нет регистров)
+}
+
 static void int_print(FILE* out, void* elem) {
     if (elem != NULL) {
         fprintf(out, "%d", *(int*)elem);
@@ -35,6 +39,7 @@ const FieldInfo* GetIntFieldInfo(void) {
             _int_field_info->destroy = int_destroy;
             _int_field_info->compare = int_compare;
             _int_field_info->print = int_print;
+            _int_field_info->compare_case_insensitive = int_compare_ignore_case;
         }
     }
     return (const FieldInfo*)_int_field_info;

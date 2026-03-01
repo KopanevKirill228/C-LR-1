@@ -14,12 +14,14 @@ set(LIB_SOURCES
     src/Dynamic_Array.c
     src/char_type.c
     src/int_type.c
+    src/tokenizer.c
 )
 
 set(LIB_HEADERS
     src/my_string.h
     src/Dynamic_Array.h
     src/fieldinfo.h
+    src/tokenizer.h
 )
 
 # === Демонстрация ===

@@ -271,6 +271,30 @@ src/my_string.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/my_string.c.s
 .PHONY : src/my_string.c.s
 
+src/tokenizer.obj: src/tokenizer.c.obj
+.PHONY : src/tokenizer.obj
+
+# target to build an object file
+src/tokenizer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/tokenizer.c.obj
+.PHONY : src/tokenizer.c.obj
+
+src/tokenizer.i: src/tokenizer.c.i
+.PHONY : src/tokenizer.i
+
+# target to preprocess a source file
+src/tokenizer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/tokenizer.c.i
+.PHONY : src/tokenizer.c.i
+
+src/tokenizer.s: src/tokenizer.c.s
+.PHONY : src/tokenizer.s
+
+# target to generate assembly for a file
+src/tokenizer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/tokenizer.c.s
+.PHONY : src/tokenizer.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -297,6 +321,9 @@ help:
 	@echo ... src/my_string.obj
 	@echo ... src/my_string.i
 	@echo ... src/my_string.s
+	@echo ... src/tokenizer.obj
+	@echo ... src/tokenizer.i
+	@echo ... src/tokenizer.s
 .PHONY : help
 
 

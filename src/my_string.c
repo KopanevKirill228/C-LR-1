@@ -113,7 +113,12 @@ int* String_Find(const String* s, const String* pattern, bool match_case, size_t
     int* indices = (int*)malloc(text_len * sizeof(int));
     if (indices == NULL) return NULL;
     
-    int (*compare_func)(void*, void*) = s->type_info->compare;
+    int (*compare_func)(void*, void*);
+    if (match_case) {
+        compare_func = s->type_info->compare;
+    } else {
+        compare_func = s->type_info->compare_case_insensitive;
+    }
     
     for (size_t i = 0; i <= text_len - pattern_len; i++) {
         bool match = true;

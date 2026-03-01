@@ -5,6 +5,7 @@
 #include <windows.h>
 #include "my_string.h"
 #include "fieldinfo.h"
+#include "tokenizer.h"
 
 void clear_input(void);
 
@@ -27,6 +28,7 @@ int main(void) {
         printf("4. Подстрока\n");
         printf("5. Поиск подстроки\n");
         printf("6. Показать текущую строку\n");
+        printf("7. Разбиение на лексемы\n");
         printf("0. Выход\n");
         printf("====================================\n");
         printf("Выбор: ");
@@ -286,6 +288,33 @@ int main(void) {
                     printf("\n");
                 }
                 break;
+
+            case 7: {
+                printf("\n--- РАЗБИЕНИЕ НА ЛЕКСЕМЫ ---\n");
+                if (!current) {
+                    printf("Сначала создайте строку\n");
+                    break;
+                }
+                
+                if (!Tokenize_Supported(current)) {
+                    printf("Токенизация доступна только для char строк\n");
+                    break;
+                }
+                
+                printf("Исходная строка: ");
+                String_PrintLine(current);
+                
+                DynamicArray* tokens = Tokenize(current);
+                if (tokens) {
+                    printf("Лексемы: ");
+                    Tokenize_Print(tokens, stdout);
+                    printf("\n");
+                    Tokenize_Destroy(tokens);
+                } else {
+                    printf("Не удалось разбить на лексемы\n");
+                }
+                break;
+            }
             
             
             case 0:

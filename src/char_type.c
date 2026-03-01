@@ -21,6 +21,16 @@ static int char_compare(void* a, void* b) {
     return *(char*)a - *(char*)b;
 }
 
+static int char_compare_ignore_case(void* a, void* b) {
+    char ca = *(char*)a;
+    char cb = *(char*)b;
+    
+    if (ca >= 'A' && ca <= 'Z') ca = ca + ('a' - 'A');
+    if (cb >= 'A' && cb <= 'Z') cb = cb + ('a' - 'A');
+    
+    return ca - cb;  // без учёта регистра
+}
+
 static void char_print(FILE* out, void* elem) {
     if (elem != NULL) {
         fprintf(out, "%c", *(char*)elem);
@@ -37,6 +47,7 @@ const FieldInfo* GetCharFieldInfo(void) {
             _char_field_info->copy = char_copy;
             _char_field_info->destroy = char_destroy;
             _char_field_info->compare = char_compare;
+            _char_field_info->compare_case_insensitive = char_compare_ignore_case;
             _char_field_info->print = char_print;
         }
     }

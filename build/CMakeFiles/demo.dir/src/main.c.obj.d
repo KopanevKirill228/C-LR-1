@@ -297,4 +297,6 @@ CMakeFiles/demo.dir/src/main.c.obj: C:\Users\kiris\C-LR-1\src\main.c \
  C:\Users\kiris\C-LR-1\src\my_string.h \
  C:/Users/kiris/Desktop/w64devkit/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdbool.h \
  C:\Users\kiris\C-LR-1\src\fieldinfo.h \
- C:\Users\kiris\C-LR-1\src\Dynamic_Array.h
+ C:\Users\kiris\C-LR-1\src\Dynamic_Array.h \
+ C:\Users\kiris\C-LR-1\src\tokenizer.h \
+ C:\Users\kiris\C-LR-1\src\dynamic_array.h
