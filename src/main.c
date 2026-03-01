@@ -49,7 +49,9 @@ int main(void) {
                 
                 if (current) String_Destroy(current);
                 current = String_Create(buffer, len, GetCharFieldInfo());
-                printf("Строка создана: %s\n", buffer);
+                
+                printf("Строка создана: ");
+                String_PrintLine(current);  // Универсальная печать
                 break;
             }
             
@@ -70,10 +72,7 @@ int main(void) {
                 current = String_Create(numbers, count, GetIntFieldInfo());
                 
                 printf("Строка создана: ");
-                for (int i = 0; i < count; i++) {
-                    printf("%d ", numbers[i]);
-                }
-                printf("\n");
+                String_PrintLine(current);  // Универсальная печать через полиморфизм
                 free(numbers);
                 break;
             }
