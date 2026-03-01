@@ -133,11 +133,14 @@ void Tokenize_Print(const DynamicArray* tokens, FILE* out) {
     
     fprintf(out, "[");
     size_t size = DynamicArray_Size(tokens);
+    
     for (size_t i = 0; i < size; i++) {
         String** token_ptr = (String**)DynamicArray_Get(tokens, i);
         if (token_ptr != NULL && *token_ptr != NULL) {
             if (i > 0) fprintf(out, ", ");
+            fprintf(out, "'");
             String_Print(out, *token_ptr);
+            fprintf(out, "'");
         }
     }
     fprintf(out, "]");
