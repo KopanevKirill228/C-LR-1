@@ -8,7 +8,7 @@
 
 struct _string {
     DynamicArray* data;
-    const FieldInfo* type_info;  // ← Храним тип для полиморфизма
+    const FieldInfo* type_info;
 };
 
 String* String_Create(const void* data, size_t element_count, const FieldInfo* type_info) {
@@ -18,7 +18,7 @@ String* String_Create(const void* data, size_t element_count, const FieldInfo* t
     if (s == NULL) return NULL;
     
     s->type_info = type_info;
-    s->data = DynamicArray_Create(type_info, element_count);  // ← Обновлено
+    s->data = DynamicArray_Create(type_info, element_count);
     if (s->data == NULL) {
         free(s);
         return NULL;
@@ -28,7 +28,7 @@ String* String_Create(const void* data, size_t element_count, const FieldInfo* t
         for (size_t i = 0; i < element_count; i++) {
             const unsigned char* byte_ptr = (const unsigned char*)data;
             const void* elem = byte_ptr + i * type_info->element_size;
-            if (DynamicArray_Push(s->data, (void*)elem) != 0) {  // ← Обновлено
+            if (DynamicArray_Push(s->data, (void*)elem) != 0) {  
                 String_Destroy(s);
                 return NULL;
             }
@@ -39,12 +39,25 @@ String* String_Create(const void* data, size_t element_count, const FieldInfo* t
 }
 
 String* String_CreateEmpty(size_t capacity, const FieldInfo* type_info) {
-    return String_Create(NULL, 0, type_info);
+    if (type_info == NULL) return NULL;
+    
+    String* s = (String*)malloc(sizeof(String));
+    if (s == NULL) return NULL;
+    
+    s->type_info = type_info;
+    // Используем capacity как начальную ёмкость
+    s->data = DynamicArray_Create(type_info, capacity);
+    if (s->data == NULL) {
+        free(s);
+        return NULL;
+    }
+    
+    return s;
 }
 
 void String_Destroy(String* s) {
     if (s == NULL) return;
-    if (s->data != NULL) DynamicArray_Destroy(s->data);  // ← Обновлено
+    if (s->data != NULL) DynamicArray_Destroy(s->data);
     free(s);
 }
 
@@ -59,11 +72,11 @@ String* String_Concat(const String* s1, const String* s2) {
     
     for (size_t i = 0; i < len1; i++) {
         const void* elem = String_GetElement(s1, i);
-        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);  // ← Обновлено
+        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);
     }
     for (size_t i = 0; i < len2; i++) {
         const void* elem = String_GetElement(s2, i);
-        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);  // ← Обновлено
+        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);
     }
     
     return result;
@@ -80,7 +93,7 @@ String* String_Substring(const String* s, size_t start, size_t end) {
     
     for (size_t i = start; i < end; i++) {
         const void* elem = String_GetElement(s, i);
-        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);  // ← Обновлено
+        if (elem != NULL) DynamicArray_Push(result->data, (void*)elem);
     }
     
     return result;
@@ -90,7 +103,7 @@ int* String_Find(const String* s, const String* pattern, bool match_case, size_t
     if (s == NULL || pattern == NULL || out_count == NULL || !String_SameType(s, pattern)) {
         return NULL;
     }
-    
+
     *out_count = 0;
     size_t text_len = String_Length(s);
     size_t pattern_len = String_Length(pattern);
@@ -134,15 +147,15 @@ int* String_Find(const String* s, const String* pattern, bool match_case, size_t
 }
 
 size_t String_Length(const String* s) {
-    return (s != NULL && s->data != NULL) ? DynamicArray_Size(s->data) : 0;  // ← Обновлено
+    return (s != NULL && s->data != NULL) ? DynamicArray_Size(s->data) : 0;
 }
 
 const void* String_GetElement(const String* s, size_t index) {
     if (s == NULL || s->data == NULL) return NULL;
-    return DynamicArray_Get(s->data, index);  // ← Обновлено
+    return DynamicArray_Get(s->data, index);
 }
 
-// УНИВЕРСАЛЬНАЯ ПЕЧАТЬ (как СТРОКА, не массив!)
+// УНИВЕРСАЛЬНАЯ ПЕЧАТЬ
 void String_Print(FILE* out, const String* s) {
     if (s == NULL || s->data == NULL || s->type_info == NULL) return;
     

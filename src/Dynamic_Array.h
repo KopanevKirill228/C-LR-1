@@ -18,5 +18,6 @@ int DynamicArray_Set(DynamicArray* arr, size_t index, void* element);
 size_t DynamicArray_Size(const DynamicArray* arr);
 int DynamicArray_CheckType(const DynamicArray* arr, const FieldInfo* expected_type);
 
+const FieldInfo* DynamicArray_GetType(const DynamicArray* arr);
 
 #endif

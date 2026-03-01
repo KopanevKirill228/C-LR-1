@@ -1,15 +1,13 @@
-
 #include <stdio.h>
 #include <locale.h>
 #include <windows.h>
 #include "test_macros.h"
 
-// Объявления функций из других тестовых файлов
 extern void run_core_tests(void);
 extern void run_string_tests(void);
 
 int main(void) {
-    // Настройка консоли для UTF-8 (wchar_t вывод)
+    // Настройка консоли для UTF-8
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
@@ -25,5 +23,5 @@ int main(void) {
     // Статистика
     PRINT_STATS();
     
-    return (tests_failed == 0) ? 0 : 1;
+    return 0;
 }

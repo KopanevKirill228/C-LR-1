@@ -1,5 +1,3 @@
-# tests/CMakeLists.txt
-
 # Исполняемый файл для тестов
 add_executable(run_tests
     test_runner.c

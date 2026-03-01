@@ -184,3 +184,7 @@ int DynamicArray_CheckType(const DynamicArray* arr, const FieldInfo* expected_ty
     }
     return (arr->type_info == expected_type) ? 1 : 0;
 }
+
+const FieldInfo* DynamicArray_GetType(const DynamicArray* arr) {
+    return (arr != NULL) ? arr->type_info : NULL;
+}

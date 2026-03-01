@@ -6,7 +6,6 @@
 #include "my_string.h"
 #include "fieldinfo.h"
 
-// Прототипы
 void clear_input(void);
 
 int main(void) {
@@ -28,7 +27,6 @@ int main(void) {
         printf("4. Подстрока\n");
         printf("5. Поиск подстроки\n");
         printf("6. Показать текущую строку\n");
-        printf("7. Запустить тесты\n");
         printf("0. Выход\n");
         printf("====================================\n");
         printf("Выбор: ");
@@ -204,8 +202,8 @@ int main(void) {
                     fgets(buffer, sizeof(buffer), stdin);
                     
                     size_t len = strlen(buffer);
-                    if (len > 0 && buffer[len-1] == '\n') {
-                        buffer[len-1] = '\0';
+                    if (len > 0 && buffer[len - 1] == '\n') {
+                        buffer[len - 1] = '\0';
                         len--;
                     }
                     
@@ -290,13 +288,6 @@ int main(void) {
                 }
                 break;
             
-            case 7: // Запустить тесты
-                printf("\n--- ЗАПУСК ТЕСТОВ ---\n");
-                extern void run_core_tests(void);
-                extern void run_string_tests(void);
-                //run_core_tests();
-                //run_string_tests();
-                break;
             
             case 0:
                 printf("До свидания!\n");
