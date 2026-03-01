@@ -19,7 +19,7 @@ static int int_compare(void* a, void* b) {
 }
 
 static int int_compare_ignore_case(void* a, void* b) {
-    return *(int*)a - *(int*)b;  // то же самое (тут нет регистров)
+    return *(int*)a - *(int*)b;  // нет регистров, значит тот же, что и int_compare
 }
 
 static void int_print(FILE* out, void* elem) {

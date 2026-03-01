@@ -271,6 +271,30 @@ src/my_string.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/my_string.c.s
 .PHONY : src/my_string.c.s
 
+src/string_type.obj: src/string_type.c.obj
+.PHONY : src/string_type.obj
+
+# target to build an object file
+src/string_type.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/string_type.c.obj
+.PHONY : src/string_type.c.obj
+
+src/string_type.i: src/string_type.c.i
+.PHONY : src/string_type.i
+
+# target to preprocess a source file
+src/string_type.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/string_type.c.i
+.PHONY : src/string_type.c.i
+
+src/string_type.s: src/string_type.c.s
+.PHONY : src/string_type.s
+
+# target to generate assembly for a file
+src/string_type.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\demo.dir\build.make CMakeFiles/demo.dir/src/string_type.c.s
+.PHONY : src/string_type.c.s
+
 src/tokenizer.obj: src/tokenizer.c.obj
 .PHONY : src/tokenizer.obj
 
@@ -321,6 +345,9 @@ help:
 	@echo ... src/my_string.obj
 	@echo ... src/my_string.i
 	@echo ... src/my_string.s
+	@echo ... src/string_type.obj
+	@echo ... src/string_type.i
+	@echo ... src/string_type.s
 	@echo ... src/tokenizer.obj
 	@echo ... src/tokenizer.i
 	@echo ... src/tokenizer.s

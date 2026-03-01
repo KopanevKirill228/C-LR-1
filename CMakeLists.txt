@@ -15,6 +15,7 @@ set(LIB_SOURCES
     src/char_type.c
     src/int_type.c
     src/tokenizer.c
+    src/string_type.c
 )
 
 set(LIB_HEADERS

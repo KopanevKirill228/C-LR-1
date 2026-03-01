@@ -1,6 +1,7 @@
 #include "tokenizer.h"
 #include <ctype.h>
 #include <stdio.h>
+#include "fieldinfo.h"
 
 
 //  Проверяет, является ли символ разделителем/оператором
@@ -35,7 +36,7 @@ DynamicArray* Tokenize(const String* s) {
     if (len == 0) return NULL;
     
     // Создаём массив для хранения лексем
-    DynamicArray* tokens = DynamicArray_Create(GetCharFieldInfo(), 10);
+    DynamicArray* tokens = DynamicArray_Create(GetStringFieldInfo(), len);
     if (tokens == NULL) return NULL;
     
     size_t i = 0;
@@ -140,6 +141,7 @@ void Tokenize_Print(const DynamicArray* tokens, FILE* out) {
         }
     }
     fprintf(out, "]");
+    fflush(out);
 }
 
 String* Tokenize_Get(const DynamicArray* tokens, size_t index) {
