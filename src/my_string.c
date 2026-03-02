@@ -64,11 +64,6 @@ void String_Destroy(String* s) {
 String* String_Concat(const String* s1, const String* s2) {
     if (s1 == NULL || s2 == NULL || !String_SameType(s1, s2)) return NULL;
 
-    if (!String_SameType(s1, s2)) {
-        printf("Ошибка: нельзя конкатенировать строки разных типов!\n");
-        return NULL;
-    }
-    
     size_t len1 = String_Length(s1);
     size_t len2 = String_Length(s2);
     

@@ -114,6 +114,12 @@ int main(void) {
                     
                     String* second = String_Create(buffer, len, type);
                     
+                    if (!String_SameType(current, second)) {
+                        printf("ОШИБКА: Нельзя конкатенировать строки разных типов!\n");
+                        String_Destroy(second);
+                        break;
+                    }
+
                     String* result = String_Concat(current, second);
                     
                     if (result) {
