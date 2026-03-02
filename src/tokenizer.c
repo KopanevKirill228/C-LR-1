@@ -20,7 +20,7 @@ static int is_whitespace(char c) {
 // Проверяет, является ли символ буквой или цифрой
 static int is_alnum(char c) {
     return (c >= 'a' && c <= 'z') || 
-           (c >= 'A' && c <= 'Z') || 
+           (c >= 'A' && c <= 'Z') ||
            (c >= '0' && c <= '9');
 }
 

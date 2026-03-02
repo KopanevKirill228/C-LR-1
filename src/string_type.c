@@ -1,3 +1,7 @@
+// Я написал string_type.c для доп. задания (разбить на лексемы), чтобы можно было хранить
+//массив строк и выводить лексемы
+
+
 #include "fieldinfo.h"
 #include <stdlib.h>
 #include <stdio.h>

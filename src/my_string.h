@@ -27,6 +27,6 @@ void String_PrintLine(const String* s);
 
 // ПРОВЕРКА ТИПА
 const FieldInfo* String_GetType(const String* s);
-bool String_SameType(const String* s1, const String* s2);
+bool String_SameType(const String* s1, const String* s2); 
 
 #endif
