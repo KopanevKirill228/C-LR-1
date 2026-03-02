@@ -119,7 +119,7 @@ int main(void) {
                     if (result) {
                         String_Destroy(current);
                         current = result;
-                        printf("Результат: %s\n", buffer);
+                        printf("Результат добавлен\n");
                     }
                     String_Destroy(second);
                     
@@ -156,9 +156,6 @@ int main(void) {
                     printf("Сначала создайте строку\n");
                     break;
                 }
-                
-                size_t len = String_Length(current);
-                printf("Длина строки: %zu\n", len);
                 
                 int start, end;
                 printf("Введите start и end: ");
@@ -273,7 +270,6 @@ int main(void) {
                 } else {
                     const FieldInfo* type = String_GetType(current);
                     printf("Тип: %s\n", type == GetCharFieldInfo() ? "char" : "int");
-                    printf("Длина: %zu\n", String_Length(current));
                     printf("Содержимое: ");
                     if (type == GetCharFieldInfo()) {
                         for (size_t i = 0; i < String_Length(current); i++) {
