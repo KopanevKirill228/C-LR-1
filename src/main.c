@@ -113,6 +113,7 @@ int main(void) {
                     }
                     
                     String* second = String_Create(buffer, len, type);
+                    
                     String* result = String_Concat(current, second);
                     
                     if (result) {
